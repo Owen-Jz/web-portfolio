@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="OLIVE & EMBER — Bespoke catering for weddings, corporate events and private dining. Farm-to-table, seasonal menus, world-class chefs." />
+  <title>Olive & Ember — Bespoke Catering</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Serif:ital@0;1&family=Caveat:wght@400;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- LOADER — handwritten "setting the table…" -->
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <span class="loader-hand">setting the table</span>
+      <span class="loader-dots" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </span>
+    </div>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <a href="#home" class="brand">
+      <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+        <path d="M16 4c5 0 9 4 9 9-3 0-9-1-9-9zm0 0c-5 0-9 4-9 9 3 0 9-1 9-9zm0 24V13" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span>Olive <em>&amp;</em> Ember</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#story">Story</a>
+      <a href="#services">Services</a>
+      <a href="#menu">Menu</a>
+      <a href="#process">Process</a>
+      <a href="#gallery">Events</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="nav-cta">
+      <span class="cta-long">Plan an Event</span>
+      <span class="cta-short">Enquire</span>
+      <svg viewBox="0 0 24 24" width="12" height="12"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </header>
+
+  <!-- HERO — editorial / food-magazine -->
+  <section class="hero" id="home">
+    <!-- Three.js drifting garnish particles (sage, tomato, citrus, salt, pepper) -->
+    <canvas id="heroCanvas"></canvas>
+
+    <div class="hero-grid">
+      <!-- LEFT — typography stack -->
+      <div class="hero-left">
+        <span class="hero-eyebrow">
+          <span class="dot"></span>
+          <span>Now booking · Summer &amp; Fall 2026</span>
+        </span>
+
+        <h1 class="hero-title">
+          <span class="line"><span class="reveal">The kind of</span></span>
+          <span class="line">
+            <span class="reveal underline-word">
+              <span>dinner</span>
+              <svg class="squiggle" viewBox="0 0 320 22" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M2 14 C 40 2, 80 22, 120 10 S 200 22, 240 10 S 310 22, 318 8"
+                      stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </span>
+          <span class="line"><span class="reveal">people are</span></span>
+          <span class="line"><span class="reveal serif-italic">still talking about</span></span>
+          <span class="line"><span class="reveal">on Monday.</span></span>
+        </h1>
+
+        <p class="hero-sub reveal-soft">
+          A small studio of chefs, foragers &amp; stylists building
+          seasonal menus for weddings, private dinners and the
+          world&rsquo;s most particular brands.
+        </p>
+
+        <div class="hero-actions reveal-soft">
+          <a href="#contact" class="btn-fill"><span>Plan your night</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+          </a>
+          <a href="#menu" class="btn-quiet"><span>Read this week&rsquo;s menu</span></a>
+        </div>
+
+        <!-- "this week's picks" — hand-scribbled callout + 3 dish thumbs -->
+        <div class="hero-picks reveal-soft">
+          <span class="hand-note">
+            today&rsquo;s picks
+            <svg class="hand-arrow" viewBox="0 0 80 60" aria-hidden="true">
+              <path d="M5 10 C 25 5, 40 30, 35 50" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+              <path d="M28 42 L 35 50 L 44 44" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <div class="picks-row">
+            <a href="#menu" class="pick">
+              <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=240&q=80" alt=""/>
+              <div>
+                <strong>Heirloom tomato</strong>
+                <span>smoked ricotta, basil oil</span>
+              </div>
+            </a>
+            <a href="#menu" class="pick">
+              <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=240&q=80" alt=""/>
+              <div>
+                <strong>Hand-rolled pasta</strong>
+                <span>brown butter, alba truffle</span>
+              </div>
+            </a>
+            <a href="#menu" class="pick">
+              <img src="https://images.unsplash.com/photo-1559336197-ded8aaa244bc?auto=format&fit=crop&w=240&q=80" alt=""/>
+              <div>
+                <strong>Olive oil cake</strong>
+                <span>blood orange, dried rose</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT — tilted polaroid stack of food -->
+      <div class="hero-right" aria-hidden="true">
+        <figure class="polaroid pol-1">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=85" alt=""/>
+          <figcaption>Tomato, peach, fennel — June 14</figcaption>
+        </figure>
+
+        <figure class="polaroid pol-2">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=700&q=85" alt=""/>
+          <figcaption>Coal-roasted duck, plum</figcaption>
+        </figure>
+
+        <figure class="polaroid pol-3">
+          <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=85" alt=""/>
+          <figcaption>Stone fruit gallette</figcaption>
+        </figure>
+
+        <!-- Rotating sticker badge -->
+        <div class="sticker">
+          <svg viewBox="0 0 120 120" width="140" height="140" aria-hidden="true">
+            <defs>
+              <path id="badgeCircle" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" />
+            </defs>
+            <text font-family="Caveat, cursive" font-size="14.5" font-weight="600" letter-spacing="2">
+              <textPath xlink:href="#badgeCircle">
+                hand crafted · seasonal · made today · hand crafted · seasonal ·
+              </textPath>
+            </text>
+          </svg>
+          <span class="sticker-core">✦</span>
+        </div>
+
+        <!-- Hand-written tag with arrow pointing to top polaroid -->
+        <div class="tag">
+          <span>tonight&rsquo;s special</span>
+          <svg viewBox="0 0 60 60" aria-hidden="true">
+            <path d="M5 55 C 15 35, 30 18, 55 8" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M46 4 L 55 8 L 52 17" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom strip — INGREDIENT marquee (replaces services list) -->
+    <div class="hero-marquee" aria-hidden="true">
+      <div class="hm-track">
+        <span>Heirloom tomato</span><span class="dotsep">✦</span>
+        <span>Burrata</span><span class="dotsep">✦</span>
+        <span>Saffron</span><span class="dotsep">✦</span>
+        <span>Smoked honey</span><span class="dotsep">✦</span>
+        <span>Black truffle</span><span class="dotsep">✦</span>
+        <span>Anjou pear</span><span class="dotsep">✦</span>
+        <span>Castelvetrano olive</span><span class="dotsep">✦</span>
+        <span>Wild fennel</span><span class="dotsep">✦</span>
+        <span>Sumac</span><span class="dotsep">✦</span>
+        <span>Crème fraîche</span><span class="dotsep">✦</span>
+        <span>Heirloom tomato</span><span class="dotsep">✦</span>
+        <span>Burrata</span><span class="dotsep">✦</span>
+        <span>Saffron</span><span class="dotsep">✦</span>
+        <span>Smoked honey</span><span class="dotsep">✦</span>
+        <span>Black truffle</span><span class="dotsep">✦</span>
+        <span>Anjou pear</span><span class="dotsep">✦</span>
+        <span>Castelvetrano olive</span><span class="dotsep">✦</span>
+        <span>Wild fennel</span><span class="dotsep">✦</span>
+        <span>Sumac</span><span class="dotsep">✦</span>
+        <span>Crème fraîche</span><span class="dotsep">✦</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- KNOWN FOR — soft cream band, hand-written tag + stats with serif numerals -->
+  <section class="known">
+    <span class="hand-note known-tag">a few numbers we&rsquo;re proud of —</span>
+    <div class="known-row">
+      <div class="stat"><strong data-count="980">0</strong><span>plates served at our biggest night</span></div>
+      <div class="stat"><strong data-count="42">0</strong><span>chefs, foragers &amp; stylists in studio</span></div>
+      <div class="stat"><strong data-count="60">0</strong><span>farms we know by first name</span></div>
+      <div class="stat"><strong data-count="11">0</strong><span>years cooking for the talked-about</span></div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story" id="story">
+    <div class="story-grid">
+      <div class="story-text">
+        <span class="section-label">— Our Story</span>
+        <h2 class="section-title">
+          <span class="reveal">A studio of cooks,</span>
+          <span class="reveal serif-italic">stylists & growers.</span>
+        </h2>
+        <p class="reveal lead">
+          Olive &amp; Ember began in a Brooklyn loft over a single shared meal.
+          Today we build seasonal, location-led menus across three continents —
+          but our obsession is the same: <em>real food, made by hand, served beautifully.</em>
+        </p>
+        <ul class="check-list">
+          <li class="reveal"><span>01</span>Direct relationships with 60+ farms & growers</li>
+          <li class="reveal"><span>02</span>Custom-built mobile kitchens for any venue</li>
+          <li class="reveal"><span>03</span>Sommelier-led wine & cocktail pairings</li>
+          <li class="reveal"><span>04</span>Plant-forward, allergen-aware menu design</li>
+        </ul>
+        <a href="#contact" class="btn btn-dark"><span>Meet the studio</span><i></i></a>
+      </div>
+
+      <div class="story-mosaic">
+        <figure class="mo mo-a parallax-item" data-speed="0.06">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80" alt="Plated dish"/>
+        </figure>
+        <figure class="mo mo-b parallax-item" data-speed="-0.04">
+          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=900&q=80" alt="Chef plating"/>
+        </figure>
+        <figure class="mo mo-c parallax-item" data-speed="0.1">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=600&q=80" alt="Table setting"/>
+        </figure>
+        <div class="mo-badge parallax-item" data-speed="0.12">
+          <svg viewBox="0 0 100 100" width="120" height="120" aria-hidden="true">
+            <defs>
+              <path id="circle" d="M50,50 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0" />
+            </defs>
+            <text font-family="Fraunces, serif" font-size="9.6" letter-spacing="2">
+              <textPath xlink:href="#circle">Hand crafted · Seasonal · Since 2014 · </textPath>
+            </text>
+          </svg>
+          <span class="mo-core">✦</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-head">
+      <span class="section-label">— What we do</span>
+      <h2 class="section-title">
+        <span class="reveal">Four ways</span>
+        <span class="reveal serif-italic">we host.</span>
+      </h2>
+    </div>
+
+    <div class="service-list">
+      <article class="service" data-idx="01">
+        <div class="service-num">01</div>
+        <div class="service-body">
+          <h3>Weddings</h3>
+          <p>From intimate ceremonies to 400-guest celebrations — bespoke menus, custom builds, full-service teams.</p>
+          <a href="#" class="arrow-link"><span>Wedding Lookbook</span><svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+        </div>
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80" alt="Wedding catering"/>
+        </div>
+      </article>
+
+      <article class="service" data-idx="02">
+        <div class="service-num">02</div>
+        <div class="service-body">
+          <h3>Corporate &amp; Brand</h3>
+          <p>Conferences, product launches, dinners that win deals. We make logistics invisible and food unforgettable.</p>
+          <a href="#" class="arrow-link"><span>Client Roster</span><svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+        </div>
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1497644083578-611b798c60f3?auto=format&fit=crop&w=900&q=80" alt="Corporate event"/>
+        </div>
+      </article>
+
+      <article class="service" data-idx="03">
+        <div class="service-num">03</div>
+        <div class="service-body">
+          <h3>Private Dining</h3>
+          <p>Multi-course tastings at home or in unusual venues — rooftops, lofts, gardens, anywhere with a table.</p>
+          <a href="#" class="arrow-link"><span>Sample Menus</span><svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+        </div>
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=900&q=80" alt="Private dining"/>
+        </div>
+      </article>
+
+      <article class="service" data-idx="04">
+        <div class="service-num">04</div>
+        <div class="service-body">
+          <h3>Cocktail Receptions</h3>
+          <p>Passed canapés, raw bars, fire pits, drinks programmes designed by our in-house bar director.</p>
+          <a href="#" class="arrow-link"><span>Drinks Programme</span><svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
+        </div>
+        <div class="service-img">
+          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80" alt="Cocktail reception"/>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- MENU — HORIZONTAL -->
+  <section class="menu" id="menu">
+    <div class="menu-stage">
+      <div class="menu-head">
+        <span class="section-label">— Signature Tasting</span>
+        <h2 class="section-title">
+          <span class="reveal">A seasonal</span>
+          <span class="reveal serif-italic">seven course.</span>
+        </h2>
+        <p class="reveal menu-sub">Scroll the table →</p>
+      </div>
+
+      <div class="menu-rail" id="menuRail">
+        <div class="menu-track" id="menuTrack">
+          <article class="dish">
+            <div class="dish-img"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80" alt=""/></div>
+            <div class="dish-meta">
+              <span class="dish-course">i · Snack</span>
+              <h3>Heirloom tomato, smoked ricotta, basil oil</h3>
+              <p>Three-bite tartlet, sourdough crumb, charred lemon zest.</p>
+              <span class="dish-pair">Pair · Crémant de Bourgogne</span>
+            </div>
+          </article>
+
+          <article class="dish">
+            <div class="dish-img"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=80" alt=""/></div>
+            <div class="dish-meta">
+              <span class="dish-course">ii · Cold</span>
+              <h3>Hudson Valley trout crudo</h3>
+              <p>Cured 6 hours, finger lime, fennel pollen, buttermilk snow.</p>
+              <span class="dish-pair">Pair · Albariño, Rías Baixas</span>
+            </div>
+          </article>
+
+          <article class="dish">
+            <div class="dish-img"><img src="https://images.unsplash.com/photo-1559054663-e8d23213f55c?auto=format&fit=crop&w=900&q=80" alt=""/></div>
+            <div class="dish-meta">
+              <span class="dish-course">iii · Garden</span>
+              <h3>Burnt eggplant, miso, charred shallot</h3>
+              <p>Smoked over apple wood, sesame brittle, crispy rice.</p>
+              <span class="dish-pair">Pair · Sake, Junmai Daiginjō</span>
+            </div>
+          </article>
+
+          <article class="dish">
+            <div class="dish-img"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=900&q=80" alt=""/></div>
+            <div class="dish-meta">
+              <span class="dish-course">iv · Pasta</span>
+              <h3>Hand-rolled tagliarini</h3>
+              <p>Aged parm, brown butter, alba truffle (in season).</p>
+              <span class="dish-pair">Pair · Barbera d'Asti</span>
+            </div>
+          </article>
+
+          <article class="dish">
+            <div class="dish-img"><img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=900&q=80" alt=""/></div>
+            <div class="dish-meta">
+              <span class="dish-course">v · Main</span>
+              <h3>Coal-roasted duck, plum, anise</h3>
+              <p>Whole-bird roasted, dry-aged 14 days, fermented plum jus.</p>
+              <span class="dish-pair">Pair · Pinot Noir, Sonoma Coast</span>
+            </div>
+          </article>
+
+          <article class="dish">
+            <div class="dish-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80" alt=""/></div>
+            <div class="dish-meta">
+              <span class="dish-course">vi · Cheese</span>
+              <h3>A board of four</h3>
+              <p>Goat, blue, washed-rind, aged sheep — quince paste, walnut.</p>
+              <span class="dish-pair">Pair · Vintage Port</span>
+            </div>
+          </article>
+
+          <article class="dish">
+            <div class="dish-img"><img src="https://images.unsplash.com/photo-1559336197-ded8aaa244bc?auto=format&fit=crop&w=900&q=80" alt=""/></div>
+            <div class="dish-meta">
+              <span class="dish-course">vii · Sweet</span>
+              <h3>Olive oil cake, blood orange, honey</h3>
+              <p>Warm semolina, crème fraîche, candied citrus, dried rose.</p>
+              <span class="dish-pair">Pair · Moscato d'Asti</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="process-head">
+      <span class="section-label">— How it works</span>
+      <h2 class="section-title">
+        <span class="reveal">From first call</span>
+        <span class="reveal serif-italic">to last bite.</span>
+      </h2>
+    </div>
+
+    <ol class="process-steps">
+      <li class="step">
+        <span class="step-num">01</span>
+        <h3>Discovery</h3>
+        <p>A 30-minute call to understand your guests, venue and the feeling you want them to leave with.</p>
+      </li>
+      <li class="step">
+        <span class="step-num">02</span>
+        <h3>Design</h3>
+        <p>We build a bespoke menu, drinks list, staffing plan and a single, transparent proposal.</p>
+      </li>
+      <li class="step">
+        <span class="step-num">03</span>
+        <h3>Taste</h3>
+        <p>You join us in our studio for a full tasting — we tune the courses to your palate.</p>
+      </li>
+      <li class="step">
+        <span class="step-num">04</span>
+        <h3>Service</h3>
+        <p>Our team arrives early, runs flawlessly, and disappears before the last guest does.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- PARALLAX QUOTE -->
+  <section class="quote-band">
+    <div class="parallax-bg" data-speed="0.3">
+      <img src="https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=2200&q=80" alt=""/>
+    </div>
+    <div class="quote-veil"></div>
+    <div class="quote-inner">
+      <p class="quote-mark">"</p>
+      <blockquote>
+        <span class="reveal">The team Olive &amp; Ember sent felt</span>
+        <span class="reveal">like family by the end of the night —</span>
+        <span class="reveal serif-italic">and every single plate was art.</span>
+      </blockquote>
+      <cite class="reveal">— Naomi &amp; Idris, married July 2025</cite>
+    </div>
+  </section>
+
+  <!-- CHEFS -->
+  <section class="chefs">
+    <div class="chefs-head">
+      <span class="section-label">— The studio</span>
+      <h2 class="section-title">
+        <span class="reveal">Real cooks.</span>
+        <span class="reveal serif-italic">Real obsession.</span>
+      </h2>
+    </div>
+
+    <div class="chef-grid">
+      <figure class="chef">
+        <div class="chef-img"><img src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?auto=format&fit=crop&w=900&q=80" alt="Yuki Tanaka — Executive Chef" onerror="this.parentElement.classList.add('fallback')"/></div>
+        <figcaption>
+          <h3>Yuki Tanaka</h3>
+          <span>Executive Chef</span>
+          <p>Le Cordon Bleu · Noma alum · 1 Michelin</p>
+        </figcaption>
+      </figure>
+      <figure class="chef">
+        <div class="chef-img"><img src="https://images.unsplash.com/photo-1607631568010-a87245c0daf8?auto=format&fit=crop&w=900&q=80" alt="Marcus Boateng — Pastry & Bread" onerror="this.parentElement.classList.add('fallback')"/></div>
+        <figcaption>
+          <h3>Marcus Boateng</h3>
+          <span>Pastry · Bread</span>
+          <p>Tartine alum · James Beard semifinalist</p>
+        </figcaption>
+      </figure>
+      <figure class="chef">
+        <div class="chef-img"><img src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?auto=format&fit=crop&w=900&q=80" alt="Diego Marín — Sous Chef" onerror="this.parentElement.classList.add('fallback')"/></div>
+        <figcaption>
+          <h3>Diego Marín</h3>
+          <span>Sous Chef · Fire &amp; Smoke</span>
+          <p>Asador Etxebarri alum · 12 yrs over coals</p>
+        </figcaption>
+      </figure>
+      <figure class="chef">
+        <div class="chef-img"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=900&q=80" alt="Priya Shah — Event Design" onerror="this.parentElement.classList.add('fallback')"/></div>
+        <figcaption>
+          <h3>Priya Shah</h3>
+          <span>Event Design</span>
+          <p>15+ yrs production · Vogue Weddings</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-head">
+      <span class="section-label">— Past events</span>
+      <h2 class="section-title">
+        <span class="reveal">A few</span>
+        <span class="reveal serif-italic">favorite nights.</span>
+      </h2>
+    </div>
+
+    <div class="mosaic">
+      <figure class="m m1"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=80" alt=""/></figure>
+      <figure class="m m2"><img src="https://images.unsplash.com/photo-1577219492769-b63a779fac28?auto=format&fit=crop&w=900&q=80" alt=""/></figure>
+      <figure class="m m3"><img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=900&q=80" alt=""/></figure>
+      <figure class="m m4"><img src="https://images.unsplash.com/photo-1599043513900-ed6fe01d3833?auto=format&fit=crop&w=900&q=80" alt=""/></figure>
+      <figure class="m m5"><img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=80" alt=""/></figure>
+      <figure class="m m6"><img src="https://images.unsplash.com/photo-1577106263724-2c8e03bfe9cf?auto=format&fit=crop&w=900&q=80" alt=""/></figure>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="pricing-head">
+      <span class="section-label">— Packages</span>
+      <h2 class="section-title">
+        <span class="reveal">Three starting</span>
+        <span class="reveal serif-italic">points.</span>
+      </h2>
+      <p class="reveal pricing-sub">All packages are tailored after our discovery call.</p>
+    </div>
+
+    <div class="price-grid">
+      <article class="price-card">
+        <div class="price-top">
+          <h3>The Gathering</h3>
+          <span class="badge">Up to 30</span>
+        </div>
+        <div class="price"><span class="from">from</span><span class="amt">$165</span><span class="per">/ guest</span></div>
+        <ul>
+          <li>Four-course seated dinner</li>
+          <li>One sommelier-led wine pairing</li>
+          <li>Front-of-house team of three</li>
+          <li>Rental coordination</li>
+        </ul>
+        <a href="#contact" class="btn btn-line"><span>Enquire</span></a>
+      </article>
+
+      <article class="price-card featured">
+        <div class="ribbon">Most loved</div>
+        <div class="price-top">
+          <h3>The Celebration</h3>
+          <span class="badge">30 – 120</span>
+        </div>
+        <div class="price"><span class="from">from</span><span class="amt">$245</span><span class="per">/ guest</span></div>
+        <ul>
+          <li>Cocktail hour + 5-course dinner</li>
+          <li>Two wine pairings + signature cocktail</li>
+          <li>Full mobile kitchen build</li>
+          <li>Dedicated event captain</li>
+          <li>Florals &amp; tablescape design</li>
+        </ul>
+        <a href="#contact" class="btn btn-dark"><span>Enquire</span><i></i></a>
+      </article>
+
+      <article class="price-card">
+        <div class="price-top">
+          <h3>The Production</h3>
+          <span class="badge">120+</span>
+        </div>
+        <div class="price"><span class="from">from</span><span class="amt">$385</span><span class="per">/ guest</span></div>
+        <ul>
+          <li>Multi-station experiential dining</li>
+          <li>Full beverage programme</li>
+          <li>Venue scouting &amp; production</li>
+          <li>End-to-end event direction</li>
+          <li>Custom-built service pieces</li>
+        </ul>
+        <a href="#contact" class="btn btn-line"><span>Enquire</span></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="t-head">
+      <span class="section-label">— What people say</span>
+      <h2 class="section-title"><span class="reveal">Kind words.</span></h2>
+    </div>
+    <div class="t-grid">
+      <figure class="t-card">
+        <p>"Olive &amp; Ember reimagined our investor dinner — every detail considered. Three deals closed by dessert."</p>
+        <figcaption>
+          <strong>Anya Vasquez</strong>
+          <span>Partner, North Cove Ventures</span>
+        </figcaption>
+      </figure>
+      <figure class="t-card">
+        <p>"They turned a barn into the most beautiful restaurant any of us had ever eaten in. Guests still text us about the duck."</p>
+        <figcaption>
+          <strong>Theo &amp; Marisol</strong>
+          <span>Wedding, Catskills 2025</span>
+        </figcaption>
+      </figure>
+      <figure class="t-card">
+        <p>"From the proposal to the after-party, the calmest, most prepared team we've ever worked with. We've already rebooked."</p>
+        <figcaption>
+          <strong>Daniel K.</strong>
+          <span>Head of Brand, Hellebore</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="faq-head">
+      <span class="section-label">— FAQ</span>
+      <h2 class="section-title">
+        <span class="reveal">A few</span>
+        <span class="reveal serif-italic">good questions.</span>
+      </h2>
+    </div>
+    <div class="faq-list" id="faqList">
+      <details class="faq-item" open>
+        <summary><span>How far in advance should we book?</span><i></i></summary>
+        <div class="faq-body">Weddings: 6–12 months. Corporate &amp; private dining: 3–6 weeks ideal, but we keep one rapid-response slot open each week for last-minute requests.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span>Do you handle venues without a kitchen?</span><i></i></summary>
+        <div class="faq-body">Yes — barns, lofts, rooftops, gardens, beaches. We build a full mobile kitchen on site and bring everything down to the salt shaker.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span>How do you handle dietary requirements?</span><i></i></summary>
+        <div class="faq-body">We design every menu with parallel plant-based, gluten-free and allergen-aware versions. No guest gets the "boring" plate.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span>Do you travel?</span><i></i></summary>
+        <div class="faq-body">All over. We've catered events from Mexico City to Marrakesh. Travel &amp; lodging billed at cost.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span>What does a typical proposal include?</span><i></i></summary>
+        <div class="faq-body">A bespoke menu, drinks list, staffing breakdown, rental list, timeline, and a single transparent number with no surprise line items.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <span class="section-label">— Plan an event</span>
+        <h2 class="section-title">
+          <span class="reveal">Tell us about</span>
+          <span class="reveal serif-italic">your night.</span>
+        </h2>
+        <p class="reveal contact-sub">We reply within one working day with first ideas, a likely budget range and available dates.</p>
+
+        <div class="contact-info">
+          <div>
+            <span>Studio</span>
+            <p>146 Wythe Avenue<br/>Brooklyn, NY 11249</p>
+          </div>
+          <div>
+            <span>Direct</span>
+            <p>hello@oliveandember.co<br/>+1 (212) 555-0188</p>
+          </div>
+          <div>
+            <span>Hours</span>
+            <p>Mon – Fri · 9am – 7pm<br/>Weekends by appointment</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <label>
+          <span>Your name</span>
+          <input type="text" name="name" required placeholder="First & last" />
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required placeholder="you@studio.com" />
+        </label>
+        <label>
+          <span>Event type</span>
+          <select name="type">
+            <option>Wedding</option>
+            <option>Corporate</option>
+            <option>Private dining</option>
+            <option>Cocktail reception</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <label>
+          <span>Approx. guests</span>
+          <input type="number" name="guests" min="2" max="2000" placeholder="50" />
+        </label>
+        <label class="full">
+          <span>Tell us about it</span>
+          <textarea name="message" rows="4" placeholder="Venue, vibe, anything you're dreaming of..."></textarea>
+        </label>
+        <button type="submit" class="btn btn-dark full"><span>Send enquiry</span><i></i></button>
+        <p class="form-note">We respond within one working day. No automated replies.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#home" class="brand">
+          <svg viewBox="0 0 32 32" width="22" height="22"><path d="M16 4c5 0 9 4 9 9-3 0-9-1-9-9zm0 0c-5 0-9 4-9 9 3 0 9-1 9-9zm0 24V13" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          <span>Olive <em>&amp;</em> Ember</span>
+        </a>
+        <p>Bespoke catering for the moments that matter.<br/>Built in Brooklyn. Travels everywhere.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="#story">Our story</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Weddings</a></li>
+          <li><a href="#services">Corporate</a></li>
+          <li><a href="#services">Private dining</a></li>
+          <li><a href="#services">Cocktail</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Pinterest</a></li>
+          <li><a href="#">Substack</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+
+      <form class="footer-news">
+        <h4>Seasonal letter</h4>
+        <p>One menu, one essay, one recipe — eight times a year.</p>
+        <div class="news-row">
+          <input type="email" placeholder="email@inbox.com"/>
+          <button>Subscribe →</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="footer-signoff">
+      <span class="footer-handsign">till the next supper, <em>x</em></span>
+      <span class="footer-team">— the studio</span>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Olive &amp; Ember Hospitality LLC.</span>
+      <span><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Sitemap</a></span>
+    </div>
+  </footer>
+
+  <!-- LIBRARIES -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Pinned to r149 — the last release where build/three.min.js was not deprecated.
+       r150+ emits a console warning telling you to switch to ES modules; using a
+       module here would require rewriting the script as type=module. Pinning is fine. -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

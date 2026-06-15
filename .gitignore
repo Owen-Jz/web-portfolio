@@ -1,0 +1,25 @@
+# Build artifacts
+node_modules/
+.next/
+dist/
+build/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Caches & logs
+.cache/
+*.log
+.npm/
+.eslintcache
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Env
+.env
+.env.*
+!.env.example

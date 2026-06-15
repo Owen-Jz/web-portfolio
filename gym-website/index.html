@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="IRONPULSE — Forge your body. Elite gym & fitness training with world-class coaches, programs and facilities." />
+  <title>IRONPULSE — Forge Your Body. Forge Your Mind.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <div class="loader-count" id="loaderCount">0</div>
+      <div class="loader-bar"><span id="loaderFill"></span></div>
+      <div class="loader-label">FORGING&nbsp;EXPERIENCE</div>
+    </div>
+  </div>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <a href="#home" class="logo">
+      <span class="logo-mark">⚡</span>
+      <span class="logo-text">IRON<em>PULSE</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#about" data-link>About</a>
+      <a href="#programs" data-link>Programs</a>
+      <a href="#coaches" data-link>Coaches</a>
+      <a href="#pricing" data-link>Pricing</a>
+      <a href="#contact" data-link>Contact</a>
+    </nav>
+    <a href="#pricing" class="nav-cta">
+      <span>Join Now</span>
+      <svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span></button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="parallax-layer" data-speed="0.4">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=2400&q=80" alt="" />
+      </div>
+      <div class="hero-gradient"></div>
+      <div class="hero-grid"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>EST. 2014 · OPEN 24/7
+      </div>
+      <h1 class="hero-title">
+        <span class="line"><span class="reveal">FORGE</span></span>
+        <span class="line outline"><span class="reveal">YOUR</span></span>
+        <span class="line"><span class="reveal">LIMITS.</span></span>
+      </h1>
+      <p class="hero-sub">
+        <span class="reveal">A temple of iron, sweat and discipline.</span>
+        <span class="reveal">Built for people who refuse to settle for average.</span>
+      </p>
+
+      <div class="hero-cta">
+        <a href="#pricing" class="btn btn-primary"><span>Start Training</span><i></i></a>
+        <a href="#programs" class="btn btn-ghost"><span>Explore Programs</span></a>
+      </div>
+
+      <div class="hero-meta">
+        <div><strong>12K+</strong><span>Active Members</span></div>
+        <div><strong>40+</strong><span>Elite Coaches</span></div>
+        <div><strong>4.9★</strong><span>Avg. Rating</span></div>
+      </div>
+    </div>
+
+    <div class="hero-scroll"><span>SCROLL</span><span class="bar"></span></div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>STRENGTH</span><span class="dot">●</span>
+      <span>CONDITIONING</span><span class="dot">●</span>
+      <span>HYPERTROPHY</span><span class="dot">●</span>
+      <span>MOBILITY</span><span class="dot">●</span>
+      <span>POWERLIFTING</span><span class="dot">●</span>
+      <span>CROSSFIT</span><span class="dot">●</span>
+      <span>BOXING</span><span class="dot">●</span>
+      <span>YOGA</span><span class="dot">●</span>
+      <span>STRENGTH</span><span class="dot">●</span>
+      <span>CONDITIONING</span><span class="dot">●</span>
+      <span>HYPERTROPHY</span><span class="dot">●</span>
+      <span>MOBILITY</span><span class="dot">●</span>
+      <span>POWERLIFTING</span><span class="dot">●</span>
+      <span>CROSSFIT</span><span class="dot">●</span>
+      <span>BOXING</span><span class="dot">●</span>
+      <span>YOGA</span><span class="dot">●</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div class="about-left">
+        <span class="section-label">// 01 · WHO WE ARE</span>
+        <h2 class="section-title">
+          <span class="reveal">Not just a gym.</span>
+          <span class="reveal italic">A culture.</span>
+        </h2>
+        <p class="section-text reveal">
+          IRONPULSE is a 25,000 sq ft performance facility designed for athletes,
+          lifters and everyday warriors. We blend old-school iron with new-school
+          science to help you train smarter, recover faster and build a body that
+          performs.
+        </p>
+
+        <ul class="check-list">
+          <li class="reveal"><span class="check">✓</span>Olympic platforms, sleds, atlas stones, prowlers</li>
+          <li class="reveal"><span class="check">✓</span>Cryotherapy, infrared sauna, recovery lounge</li>
+          <li class="reveal"><span class="check">✓</span>InBody scans & nutrition coaching included</li>
+          <li class="reveal"><span class="check">✓</span>24/7 keyless access for members</li>
+        </ul>
+
+        <a href="#contact" class="btn btn-primary"><span>Book a Tour</span><i></i></a>
+      </div>
+
+      <div class="about-right">
+        <div class="about-stack">
+          <div class="about-card parallax-item" data-speed="0.06">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80" alt="Athlete training" />
+          </div>
+          <div class="about-card alt parallax-item" data-speed="-0.04">
+            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80" alt="Heavy lifting" />
+          </div>
+          <div class="about-badge parallax-item" data-speed="0.12">
+            <div class="ring"><span>BUILT&nbsp;DIFFERENT&nbsp;·&nbsp;BUILT&nbsp;DIFFERENT&nbsp;·&nbsp;</span></div>
+            <div class="ring-core">⚡</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HORIZONTAL PROGRAMS -->
+  <section class="programs" id="programs">
+   <div class="programs-stage">
+    <div class="programs-head">
+      <span class="section-label">// 02 · PROGRAMS</span>
+      <h2 class="section-title">
+        <span class="reveal">Pick your weapon.</span>
+      </h2>
+      <p class="programs-sub reveal">Six elite tracks — pick one, commit, transform.</p>
+    </div>
+
+    <div class="hscroll" id="hscroll">
+      <div class="hscroll-track" id="hscrollTrack">
+        <article class="program-card">
+          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=1200&q=80" alt="Powerlifting" />
+          <div class="program-meta">
+            <span>01</span><span>STRENGTH</span>
+          </div>
+          <h3>Powerlifting<br/>Protocol</h3>
+          <p>12-week periodized squat, bench and deadlift programming with bar speed tracking.</p>
+          <a href="#" class="program-cta">Enroll →</a>
+        </article>
+
+        <article class="program-card">
+          <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1200&q=80" alt="Hypertrophy" />
+          <div class="program-meta">
+            <span>02</span><span>HYPERTROPHY</span>
+          </div>
+          <h3>Mass<br/>Construction</h3>
+          <p>Science-based volume splits to add lean muscle without gimmicks or junk volume.</p>
+          <a href="#" class="program-cta">Enroll →</a>
+        </article>
+
+        <article class="program-card">
+          <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?auto=format&fit=crop&w=1200&q=80" alt="Conditioning" />
+          <div class="program-meta">
+            <span>03</span><span>CONDITIONING</span>
+          </div>
+          <h3>Engine<br/>Builder</h3>
+          <p>Zone-2 to VO₂-max work — assault bike, sled, ski erg circuits, three days a week.</p>
+          <a href="#" class="program-cta">Enroll →</a>
+        </article>
+
+        <article class="program-card">
+          <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=1200&q=80" alt="Boxing" />
+          <div class="program-meta">
+            <span>04</span><span>COMBAT</span>
+          </div>
+          <h3>Iron<br/>Fist Boxing</h3>
+          <p>Footwork, pad work and sparring with former pro coaches. All levels welcome.</p>
+          <a href="#" class="program-cta">Enroll →</a>
+        </article>
+
+        <article class="program-card">
+          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80" alt="Mobility" />
+          <div class="program-meta">
+            <span>05</span><span>MOBILITY</span>
+          </div>
+          <h3>Mobility<br/>Reset</h3>
+          <p>Movement screens, soft tissue work and structured mobility flows for longevity.</p>
+          <a href="#" class="program-cta">Enroll →</a>
+        </article>
+
+        <article class="program-card">
+          <img src="https://images.unsplash.com/photo-1599447421416-3414500d18a5?auto=format&fit=crop&w=1200&q=80" alt="CrossFit" onerror="this.style.background='linear-gradient(135deg,#ff5a1f,#0a0a0a)'" />
+          <div class="program-meta">
+            <span>06</span><span>HYBRID</span>
+          </div>
+          <h3>Iron<br/>WOD</h3>
+          <p>High-intensity functional training. Olympic lifts meet gymnastics meet monostructural.</p>
+          <a href="#" class="program-cta">Enroll →</a>
+        </article>
+      </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- PARALLAX QUOTE -->
+  <section class="quote-section">
+    <div class="parallax-bg" data-speed="0.3">
+      <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=2400&q=80" alt="" />
+    </div>
+    <div class="quote-overlay"></div>
+    <div class="quote-content">
+      <p class="quote-mark">"</p>
+      <blockquote class="quote-text">
+        <span class="reveal">Pain is just</span>
+        <span class="reveal">weakness</span>
+        <span class="reveal italic">leaving the body.</span>
+      </blockquote>
+      <cite class="reveal">— Marcus Vargas, Head Coach</cite>
+    </div>
+  </section>
+
+  <!-- COACHES -->
+  <section class="coaches" id="coaches">
+    <div class="coaches-head">
+      <span class="section-label">// 03 · THE COACHES</span>
+      <h2 class="section-title">
+        <span class="reveal">Trained by</span>
+        <span class="reveal italic">the best.</span>
+      </h2>
+    </div>
+
+    <div class="coach-grid">
+      <article class="coach-card">
+        <div class="coach-img"><img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=900&q=80" alt="Marcus" onerror="this.parentElement.classList.add('fallback')" /></div>
+        <div class="coach-info">
+          <h3>Marcus Vargas</h3>
+          <span>Head Coach · Strength</span>
+          <p>IPF World silver. 15+ years coaching elite lifters.</p>
+        </div>
+      </article>
+      <article class="coach-card">
+        <div class="coach-img"><img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=900&q=80" alt="Lena" onerror="this.parentElement.classList.add('fallback')" /></div>
+        <div class="coach-info">
+          <h3>Lena Okafor</h3>
+          <span>Hypertrophy · Nutrition</span>
+          <p>MSc Sports Nutrition. Pro bodybuilding contest prep.</p>
+        </div>
+      </article>
+      <article class="coach-card">
+        <div class="coach-img"><img src="https://images.unsplash.com/photo-1532384748853-8f54a8f476e2?auto=format&fit=crop&w=900&q=80" alt="Diego" onerror="this.parentElement.classList.add('fallback')" /></div>
+        <div class="coach-info">
+          <h3>Diego Marín</h3>
+          <span>Combat · Conditioning</span>
+          <p>Former pro boxer. WBC certified coach.</p>
+        </div>
+      </article>
+      <article class="coach-card">
+        <div class="coach-img"><img src="https://images.unsplash.com/photo-1605296867424-35fc25c9212a?auto=format&fit=crop&w=900&q=80" alt="Aiko" onerror="this.parentElement.classList.add('fallback')" /></div>
+        <div class="coach-info">
+          <h3>Aiko Tanaka</h3>
+          <span>Mobility · Recovery</span>
+          <p>DPT, FMS-2. Movement specialist for pro athletes.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="pricing-head">
+      <span class="section-label">// 04 · MEMBERSHIP</span>
+      <h2 class="section-title">
+        <span class="reveal">No contracts.</span>
+        <span class="reveal italic">Just results.</span>
+      </h2>
+    </div>
+
+    <div class="pricing-grid">
+      <article class="price-card">
+        <h3>Day Pass</h3>
+        <div class="price"><span class="amt">$25</span><span class="per">/ day</span></div>
+        <ul>
+          <li>Full facility access</li>
+          <li>Locker & towel</li>
+          <li>Group class drop-in</li>
+          <li>No commitment</li>
+        </ul>
+        <a href="#" class="btn btn-ghost"><span>Walk In</span></a>
+      </article>
+
+      <article class="price-card featured">
+        <div class="ribbon">MOST POPULAR</div>
+        <h3>Pulse</h3>
+        <div class="price"><span class="amt">$129</span><span class="per">/ month</span></div>
+        <ul>
+          <li>24/7 keyless access</li>
+          <li>Unlimited classes</li>
+          <li>Recovery zone access</li>
+          <li>Monthly InBody scan</li>
+          <li>Member events</li>
+        </ul>
+        <a href="#" class="btn btn-primary"><span>Join Pulse</span><i></i></a>
+      </article>
+
+      <article class="price-card">
+        <h3>Elite</h3>
+        <div class="price"><span class="amt">$289</span><span class="per">/ month</span></div>
+        <ul>
+          <li>Everything in Pulse</li>
+          <li>1:1 coaching, 4×/mo</li>
+          <li>Custom programming</li>
+          <li>Nutrition planning</li>
+          <li>Cryo + Sauna unlimited</li>
+        </ul>
+        <a href="#" class="btn btn-ghost"><span>Go Elite</span></a>
+      </article>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="testimonials-head">
+      <span class="section-label">// 05 · MEMBERS</span>
+      <h2 class="section-title"><span class="reveal">Real people. Real lifts.</span></h2>
+    </div>
+
+    <div class="testi-grid">
+      <figure class="testi-card">
+        <p>"Lost 38lbs and hit a 405 deadlift in 9 months. The coaching is unreal."</p>
+        <figcaption>
+          <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=200&q=80" alt="" />
+          <span><strong>Sarah K.</strong>Member, 2yr</span>
+        </figcaption>
+      </figure>
+      <figure class="testi-card">
+        <p>"This is the only gym I've walked into and felt instantly at home. People actually train."</p>
+        <figcaption>
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="" />
+          <span><strong>James O.</strong>Member, 3yr</span>
+        </figcaption>
+      </figure>
+      <figure class="testi-card">
+        <p>"The recovery suite alone is worth the membership. Cryo after leg day = game changer."</p>
+        <figcaption>
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80" alt="" />
+          <span><strong>Priya R.</strong>Member, 1yr</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="final-cta" id="contact">
+    <div class="parallax-bg" data-speed="0.25">
+      <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=2400&q=80" alt="" />
+    </div>
+    <div class="cta-overlay"></div>
+    <div class="cta-content">
+      <span class="section-label">// READY?</span>
+      <h2 class="cta-title">
+        <span class="reveal">YOUR&nbsp;FUTURE&nbsp;SELF</span>
+        <span class="reveal italic">is waiting in the gym.</span>
+      </h2>
+      <form class="cta-form" id="ctaForm" novalidate>
+        <input type="email" placeholder="enter your email" required />
+        <button type="submit"><span>Claim Free Trial</span><svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </form>
+      <p class="cta-note">7-day free trial · No card required · Cancel anytime.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <span class="logo-mark">⚡</span>
+          <span class="logo-text">IRON<em>PULSE</em></span>
+        </a>
+        <p>Forge your body. Forge your mind.<br/>Train with the strongest community in the city.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Visit</h4>
+        <p>448 Iron Avenue<br/>Brooklyn, NY 11201</p>
+        <p>Open 24/7 for members</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>hello@ironpulse.fit<br/>+1 (212) 555-0142</p>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <ul class="socials">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Strava</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-mega">IRONPULSE</div>
+
+    <div class="footer-bottom">
+      <span>© 2026 IRONPULSE Athletic Co.</span>
+      <span>Built with sweat in Brooklyn.</span>
+    </div>
+  </footer>
+
+  <!-- Smooth scroll + animation libs -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

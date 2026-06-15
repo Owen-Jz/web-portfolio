@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Theme tokens are defined in tailwind.config.ts.
+   This file only holds: fonts, base resets, keyframes, and a few
+   small helpers Tailwind doesn't cover cleanly.
+   ============================================================ */
+
+:root {
+  /* Font variable names are bound in app/layout.tsx via next/font.
+     Fallback chain here in case the variables fail to load. */
+  --font-display:  "Bricolage Grotesque", "Inter Tight", system-ui, sans-serif;
+  --font-display-italic: "Fraunces", "Times New Roman", serif;
+  --font-sans:     "Inter", system-ui, sans-serif;
+  --font-mono:     "IBM Plex Mono", "Courier New", monospace;
+}
+
+html, body {
+  background: #f5f3ed;
+  color: #0a0a0a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: #0017d8; color: #fbf9f3; }
+
+/* ============================================================
+   Marquee keyframes — consumed by <Marquee/>.
+   ============================================================ */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee linear infinite;
+}
+
+/* ============================================================
+   Reveal helper — used by <Reveal/> in "lines" mode.
+   GSAP sets the initial yPercent:110 in JS so we don't fight it
+   here (a CSS translateY would be unparseable by GSAP and the
+   animation would read as 0→0). We only define the mask wrapper.
+   ============================================================ */
+.line-mask {
+  display: inline-block;
+  overflow: hidden;
+}
+
+/* ============================================================
+   Lenis required overrides
+   ============================================================ */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ============================================================
+   Skeleton shimmer for image placeholders
+   ------------------------------------------------------------
+   With images.unoptimized=true we hit Unsplash direct, so cold
+   product cards can sit on a plain background for a beat. A
+   subtle moving sheen makes that beat feel intentional rather
+   than broken. Once the <img> covers the parent the shimmer is
+   invisible underneath.
+   ============================================================ */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.skeleton {
+  background-color: #eae6dc;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255,255,255,0)   0%,
+    rgba(255,255,255,.45) 50%,
+    rgba(255,255,255,0)   100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* ============================================================
+   Editorial helpers
+   ============================================================ */
+.font-display-italic { font-family: var(--font-display-italic); font-style: italic; }
+
+/* Thin underline for nav-style links */
+.under-line {
+  position: relative;
+}
+.under-line::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px; height: 1px; width: 0;
+  background: currentColor;
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.under-line:hover::after { width: 100%; }
+
+/* Hide horizontal scrollbars in filter rails */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }

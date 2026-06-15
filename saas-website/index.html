@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PRISM — one API for every LLM. Smart routing, semantic cache, observability and cost controls across OpenAI, Anthropic, Google, Mistral and 18 more providers." />
+  <title>PRISM — The Intelligence Layer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- AURORA BACKDROP — persistent gradient mesh -->
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-orb a"></div>
+    <div class="aurora-orb b"></div>
+    <div class="aurora-orb c"></div>
+    <div class="aurora-grid"></div>
+    <div class="aurora-noise"></div>
+  </div>
+
+  <!-- LOADER — system boot sequence -->
+  <div class="loader" id="loader">
+    <div class="loader-mark">
+      <svg viewBox="0 0 60 60" width="44" height="44">
+        <path d="M30 5 L55 25 L45 55 L15 55 L5 25 Z" fill="none" stroke="url(#gLoad)" stroke-width="2"/>
+        <path d="M30 5 L30 35 M30 35 L5 25 M30 35 L55 25 M30 35 L15 55 M30 35 L45 55"
+              fill="none" stroke="url(#gLoad)" stroke-width="1" opacity=".55"/>
+        <defs>
+          <linearGradient id="gLoad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stop-color="#ff7600"/>
+            <stop offset="50%" stop-color="#ff8a50"/>
+            <stop offset="100%" stop-color="#ffd278"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="loader-text">
+      <span class="loader-name">PRISM</span>
+      <span class="loader-sub" id="loaderStep">initializing intelligence layer…</span>
+    </div>
+    <div class="loader-bar"><span id="loaderFill"></span></div>
+  </div>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <a href="#home" class="brand">
+      <span class="brand-glyph">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path d="M12 2 L22 10 L18 22 L6 22 L2 10 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 2 L12 14 M12 14 L2 10 M12 14 L22 10 M12 14 L6 22 M12 14 L18 22" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        </svg>
+      </span>
+      <span class="brand-text">PRISM</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Platform</a>
+      <a href="#models">Models</a>
+      <a href="#docs">Docs</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#blog">Changelog</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#" class="nav-stars">
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 0l2.4 5.4L16 6.2l-4 3.9 1 5.9L8 13.3 3 16l1-5.9-4-3.9 5.6-.8z"/></svg>
+        <span>14.2k</span>
+      </a>
+      <a href="#" class="nav-ghost">Sign in</a>
+      <a href="#cta" class="nav-cta">
+        <span>Get started</span>
+        <svg viewBox="0 0 24 24" width="13" height="13"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO — two-column, no 3D distraction. Left = pitch. Right = live
+       routing console showing PRISM actually choosing a model. -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+
+      <!-- LEFT — clear pitch -->
+      <div class="hero-left">
+        <div class="hero-chip">
+          <span class="dot-pulse"></span>
+          <span>v 4.0 — Streaming v2 is live</span>
+          <span class="sep">·</span>
+          <span>SOC 2 Type II</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="line"><span class="reveal">One API.</span></span>
+          <span class="line"><span class="reveal gradient-text">Every model.</span></span>
+        </h1>
+
+        <p class="hero-sub">
+          Route every LLM call through one endpoint that picks the optimal
+          model per request — across <em>23 providers</em> — and costs
+          <em>68% less</em> than calling them direct.
+        </p>
+
+        <div class="hero-cta">
+          <a href="#cta" class="btn btn-primary">
+            <span>Get started — free</span>
+            <svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          </a>
+          <a href="#demo" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" width="14" height="14"><polygon points="6,4 20,12 6,20" fill="currentColor"/></svg>
+            <span>90s demo</span>
+          </a>
+        </div>
+
+        <div class="hero-trust">
+          <div class="ht-line">
+            <span class="dot-good"></span>
+            <span class="ht-strong">4,200+ teams shipping</span>
+            <span class="ht-sep">·</span>
+            <span>1M tokens / month free</span>
+            <span class="ht-sep">·</span>
+            <span class="mono ht-mono">pip install prism</span>
+          </div>
+          <div class="ht-mini">
+            <span class="ht-mini-num" id="liveTokens">47,219,304,118</span>
+            <span class="ht-mini-lbl">tokens routed in the last hour</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT — live router console -->
+      <div class="hero-right">
+        <div class="router-console" aria-label="Live routing console">
+
+          <div class="rc-head">
+            <span class="rc-dots"><i></i><i></i><i></i></span>
+            <span class="rc-title">prism.route() · live</span>
+            <span class="rc-status"><span class="dot-good"></span> 99.999%</span>
+          </div>
+
+          <!-- 1. Incoming -->
+          <div class="rc-step rc-in">
+            <span class="rc-label">→ INCOMING REQUEST</span>
+            <div class="rc-prompt" id="rcPrompt">"Summarize this support ticket and rate urgency 1–5."</div>
+            <div class="rc-meta">
+              <span id="rcTokens">2,840 tok</span>
+              <span class="rc-dot">·</span>
+              <span id="rcUser">team:cursor</span>
+              <span class="rc-dot">·</span>
+              <span>strategy: <span class="violet" id="rcStrategy">cost-first</span></span>
+            </div>
+          </div>
+
+          <div class="rc-divider">
+            <span class="rc-divider-line"></span>
+            <span class="rc-divider-dot"></span>
+          </div>
+
+          <!-- 2. Routing decision -->
+          <div class="rc-step rc-decide">
+            <span class="rc-label">↓ COMPARING 4 OF 23 PROVIDERS</span>
+            <ul class="rc-options" id="rcOptions">
+              <li class="rc-opt" data-key="gpt"><span class="rc-opt-name">openai/gpt-4o</span><span class="rc-opt-cost">$0.0042</span><span class="rc-opt-tps">198 t/s</span></li>
+              <li class="rc-opt" data-key="claude"><span class="rc-opt-name">anthropic/claude-4.5</span><span class="rc-opt-cost">$0.0028</span><span class="rc-opt-tps">156 t/s</span></li>
+              <li class="rc-opt is-chosen" data-key="gemini"><span class="rc-opt-name">google/gemini-2.5</span><span class="rc-opt-cost">$0.0019</span><span class="rc-opt-tps">220 t/s</span></li>
+              <li class="rc-opt" data-key="mistral"><span class="rc-opt-name">mistral/large</span><span class="rc-opt-cost">$0.0024</span><span class="rc-opt-tps">174 t/s</span></li>
+            </ul>
+          </div>
+
+          <div class="rc-divider">
+            <span class="rc-divider-line"></span>
+            <span class="rc-divider-dot"></span>
+          </div>
+
+          <!-- 3. Response -->
+          <div class="rc-step rc-out">
+            <span class="rc-label">← STREAMING RESPONSE</span>
+            <div class="rc-response">
+              <span id="rcResp">Customer is frustrated about a delayed order #4827. Wants refund or replacement. Last contact 3 days ago, no reply. Urgency:&nbsp;</span><span class="rc-resp-tag" id="rcUrg">4</span><span class="rc-caret"></span>
+            </div>
+            <div class="rc-stats">
+              <div><span>Chose</span><strong class="cyan" id="rcChose">google/gemini-2.5</strong></div>
+              <div><span>Latency</span><strong id="rcLat">98<i>ms</i></strong></div>
+              <div><span>Saved vs default</span><strong class="lime" id="rcSaved">54%</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-card: passive reassurance -->
+        <div class="hero-side-card">
+          <div class="hsc-row">
+            <span class="hsc-eyebrow">drop-in compatible</span>
+            <span class="hsc-meta">no code change</span>
+          </div>
+          <p class="hsc-code mono">
+            <span class="violet">base_url</span> <span class="ink-mute">=</span> <span class="lime">"https://api.prism.ai/v1"</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROVIDER MARQUEE -->
+  <section class="providers">
+    <p class="prov-eyebrow">— Routing intelligence for —</p>
+    <div class="prov-track-wrap">
+      <div class="prov-track">
+        <span class="prov-logo">OPENAI</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">ANTHROPIC</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">GOOGLE DEEPMIND</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">META</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">MISTRAL</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">COHERE</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">PERPLEXITY</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">x.AI</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">DEEPSEEK</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">REPLICATE</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">FIREWORKS</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">TOGETHER AI</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">OPENAI</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">ANTHROPIC</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">GOOGLE DEEPMIND</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">META</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">MISTRAL</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">COHERE</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">PERPLEXITY</span><span class="prov-sep">◇</span>
+        <span class="prov-logo">x.AI</span><span class="prov-sep">◇</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINAL DEMO -->
+  <section class="demo" id="demo">
+    <div class="section-head">
+      <span class="section-label"><span class="violet">[01]</span> Drop-in replacement</span>
+      <h2 class="section-title">
+        <span class="reveal">Three lines of code.</span>
+        <span class="reveal gradient-text">Every model.</span>
+      </h2>
+      <p class="section-sub">Point your existing OpenAI SDK at PRISM. Smart-route, cache, fall-over and observe — without changing a single function signature.</p>
+    </div>
+
+    <div class="demo-grid">
+      <!-- Terminal -->
+      <div class="term">
+        <div class="term-head">
+          <div class="term-dots"><i></i><i></i><i></i></div>
+          <span class="term-title">prism · py · main.py</span>
+          <span class="term-status"><span class="dot-good"></span> connected</span>
+        </div>
+        <pre class="term-body" id="termBody"></pre>
+      </div>
+
+      <!-- Side stats / dashboard preview -->
+      <div class="demo-side">
+        <div class="ds-card">
+          <p class="ds-eyebrow">— Streaming response</p>
+          <div class="ds-stream" id="dsStream">
+            <span class="ds-block" data-prov="GPT-4o" data-cost="0.0042">●</span>
+            <span class="ds-block" data-prov="Claude" data-cost="0.0028">●</span>
+            <span class="ds-block" data-prov="Gemini" data-cost="0.0019">●</span>
+          </div>
+          <div class="ds-rows">
+            <div><span>provider</span><strong id="dsProv">GPT-4o</strong></div>
+            <div><span>tokens/s</span><strong id="dsTps">198</strong></div>
+            <div><span>ttft</span><strong id="dsTtft">142ms</strong></div>
+            <div><span>cost</span><strong class="lime" id="dsCost">$0.0042</strong></div>
+          </div>
+        </div>
+
+        <div class="ds-card">
+          <p class="ds-eyebrow">— Cost vs vanilla OpenAI</p>
+          <div class="ds-bars">
+            <div class="ds-bar">
+              <span class="ds-bar-lbl">w/ PRISM</span>
+              <span class="ds-bar-track"><span class="ds-bar-fill" style="width:32%; background: var(--orange);"></span></span>
+              <span class="ds-bar-val">$680</span>
+            </div>
+            <div class="ds-bar">
+              <span class="ds-bar-lbl">vanilla</span>
+              <span class="ds-bar-track"><span class="ds-bar-fill" style="width:96%; background: rgba(255,255,255,.18);"></span></span>
+              <span class="ds-bar-val">$2,120</span>
+            </div>
+          </div>
+          <p class="ds-foot">— 68% cheaper · same model · semantic cache + cheap-first routing</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES GRID -->
+  <section class="features" id="features">
+    <div class="section-head">
+      <span class="section-label"><span class="cyan">[02]</span> Platform</span>
+      <h2 class="section-title">
+        <span class="reveal">Six primitives.</span>
+        <span class="reveal gradient-text">One control plane.</span>
+      </h2>
+    </div>
+
+    <div class="feat-grid">
+      <article class="feat feat-wide">
+        <div class="feat-head"><span class="f-num">01</span>
+          <svg viewBox="0 0 32 32" class="feat-icon"><path d="M4 16 H10 M22 16 H28 M16 4 V10 M16 22 V28" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="16" cy="16" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="16" cy="16" r="2" fill="currentColor"/></svg>
+        </div>
+        <h3>Smart routing</h3>
+        <p>Route by cost, latency, quality score or custom predicate. PRISM continuously benchmarks every model and picks the optimal one — per request, per user, per tenant.</p>
+        <div class="feat-pills">
+          <span>cost-first</span><span>latency-first</span><span>quality-first</span><span>fallback chains</span>
+        </div>
+      </article>
+
+      <article class="feat">
+        <div class="feat-head"><span class="f-num">02</span>
+          <svg viewBox="0 0 32 32" class="feat-icon"><rect x="4" y="6" width="24" height="20" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M4 12 H28 M10 18 H22 M10 22 H18" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Semantic cache</h3>
+        <p>Embeds-based de-duplication. Hit rate of 38% out of the box.</p>
+      </article>
+
+      <article class="feat">
+        <div class="feat-head"><span class="f-num">03</span>
+          <svg viewBox="0 0 32 32" class="feat-icon"><path d="M4 28 L12 18 L18 22 L28 6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28" cy="6" r="2" fill="currentColor"/></svg>
+        </div>
+        <h3>Observability</h3>
+        <p>Per-request traces. OpenTelemetry-native. Datadog &amp; Honeycomb exporters.</p>
+      </article>
+
+      <article class="feat">
+        <div class="feat-head"><span class="f-num">04</span>
+          <svg viewBox="0 0 32 32" class="feat-icon"><rect x="5" y="10" width="22" height="14" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="22" cy="17" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M9 14 H15 M9 18 H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Cost guardrails</h3>
+        <p>Per-team, per-feature, per-user budgets. Hard cuts and soft alerts.</p>
+      </article>
+
+      <article class="feat">
+        <div class="feat-head"><span class="f-num">05</span>
+          <svg viewBox="0 0 32 32" class="feat-icon"><path d="M16 4 L16 28 M8 12 L16 4 L24 12" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="28" r="2" fill="currentColor"/></svg>
+        </div>
+        <h3>Auto-failover</h3>
+        <p>Provider degraded? PRISM reroutes in under 300ms. Zero-downtime SLA.</p>
+      </article>
+
+      <article class="feat">
+        <div class="feat-head"><span class="f-num">06</span>
+          <svg viewBox="0 0 32 32" class="feat-icon"><circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M16 4 V16 L22 22" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Rate limiting</h3>
+        <p>Token-bucket, sliding window, per-key, per-IP. Burst up to 10k req/s.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE — animated SVG network -->
+  <section class="arch" id="models">
+    <div class="section-head">
+      <span class="section-label"><span class="pink">[03]</span> Architecture</span>
+      <h2 class="section-title">
+        <span class="reveal">One request goes in.</span>
+        <span class="reveal gradient-text">The best answer comes out.</span>
+      </h2>
+    </div>
+
+    <div class="arch-stage">
+      <svg class="arch-svg" viewBox="0 0 1200 540" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <defs>
+          <linearGradient id="archEdge" x1="0" x2="1">
+            <stop offset="0%"  stop-color="#ff7600" stop-opacity="0"/>
+            <stop offset="50%" stop-color="#ff7600" stop-opacity="0.75"/>
+            <stop offset="100%" stop-color="#ffd278" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="archHub" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%"  stop-color="#ff7600" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#ff7600" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="archUser" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%"  stop-color="#cc4e2b" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#ffd6b2" stop-opacity="0.85"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Background grid lines -->
+        <g class="arch-grid">
+          <path d="M0 100 H1200 M0 200 H1200 M0 300 H1200 M0 400 H1200" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        </g>
+
+        <!-- Hub glow -->
+        <circle cx="600" cy="270" r="160" fill="url(#archHub)"/>
+
+        <!-- Edges from user to hub -->
+        <path class="arch-edge edge-user" d="M50 270 Q 300 270 480 270" stroke="url(#archUser)" stroke-width="2" fill="none"/>
+
+        <!-- Edges from hub to providers -->
+        <g class="arch-edges">
+          <path class="arch-edge e1" d="M720 270 Q 850 80 1080 80"  stroke="url(#archEdge)" stroke-width="2" fill="none"/>
+          <path class="arch-edge e2" d="M720 270 Q 850 170 1080 170" stroke="url(#archEdge)" stroke-width="2" fill="none"/>
+          <path class="arch-edge e3" d="M720 270 Q 850 270 1080 270" stroke="url(#archEdge)" stroke-width="2" fill="none"/>
+          <path class="arch-edge e4" d="M720 270 Q 850 370 1080 370" stroke="url(#archEdge)" stroke-width="2" fill="none"/>
+          <path class="arch-edge e5" d="M720 270 Q 850 460 1080 460" stroke="url(#archEdge)" stroke-width="2" fill="none"/>
+        </g>
+
+        <!-- USER node -->
+        <g class="arch-user">
+          <rect x="0" y="240" width="100" height="60" rx="4" fill="rgba(255,214,178,0.06)" stroke="rgba(255,214,178,0.45)"/>
+          <text x="50" y="262" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#ffd6b2" letter-spacing="2">YOU</text>
+          <text x="50" y="282" text-anchor="middle" font-family="Inter Tight" font-size="14" fill="#ebe9e5">your app</text>
+        </g>
+
+        <!-- HUB node (PRISM) -->
+        <g class="arch-hub">
+          <polygon points="600,200 680,260 650,340 550,340 520,260" fill="rgba(255,118,0,0.18)" stroke="#ff7600" stroke-width="2"/>
+          <text x="600" y="270" text-anchor="middle" font-family="Inter Tight" font-size="22" fill="#ebe9e5" font-weight="600" letter-spacing="2">PRISM</text>
+          <text x="600" y="290" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#ff7600" letter-spacing="2.5">CONTROL PLANE</text>
+        </g>
+
+        <!-- PROVIDER nodes -->
+        <g class="arch-provs">
+          <g transform="translate(1080, 80)" class="arch-prov">
+            <rect x="0" y="-20" width="120" height="40" rx="4" fill="rgba(255,210,120,0.05)" stroke="rgba(255,210,120,0.35)"/>
+            <text x="60" y="-3" text-anchor="middle" font-family="Inter Tight" font-size="13" fill="#ebe9e5">OpenAI</text>
+            <text x="60" y="14" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#ffd278" letter-spacing="2">GPT-4o</text>
+          </g>
+          <g transform="translate(1080, 170)" class="arch-prov">
+            <rect x="0" y="-20" width="120" height="40" rx="4" fill="rgba(255,210,120,0.05)" stroke="rgba(255,210,120,0.35)"/>
+            <text x="60" y="-3" text-anchor="middle" font-family="Inter Tight" font-size="13" fill="#ebe9e5">Anthropic</text>
+            <text x="60" y="14" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#ffd278" letter-spacing="2">CLAUDE 4.5</text>
+          </g>
+          <g transform="translate(1080, 270)" class="arch-prov">
+            <rect x="0" y="-20" width="120" height="40" rx="4" fill="rgba(255,210,120,0.05)" stroke="rgba(255,210,120,0.35)"/>
+            <text x="60" y="-3" text-anchor="middle" font-family="Inter Tight" font-size="13" fill="#ebe9e5">Google</text>
+            <text x="60" y="14" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#ffd278" letter-spacing="2">GEMINI 2.5</text>
+          </g>
+          <g transform="translate(1080, 370)" class="arch-prov">
+            <rect x="0" y="-20" width="120" height="40" rx="4" fill="rgba(255,210,120,0.05)" stroke="rgba(255,210,120,0.35)"/>
+            <text x="60" y="-3" text-anchor="middle" font-family="Inter Tight" font-size="13" fill="#ebe9e5">Meta</text>
+            <text x="60" y="14" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#ffd278" letter-spacing="2">LLAMA 4</text>
+          </g>
+          <g transform="translate(1080, 460)" class="arch-prov">
+            <rect x="0" y="-20" width="120" height="40" rx="4" fill="rgba(255,210,120,0.05)" stroke="rgba(255,210,120,0.35)"/>
+            <text x="60" y="-3" text-anchor="middle" font-family="Inter Tight" font-size="13" fill="#ebe9e5">+22 more</text>
+            <text x="60" y="14" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#ffd278" letter-spacing="2">MISTRAL · COHERE · xAI</text>
+          </g>
+        </g>
+
+        <!-- Travelling pulse dots (animated by JS) -->
+        <g class="arch-pulses">
+          <circle class="pulse p1" r="4" fill="#ff7600"/>
+          <circle class="pulse p2" r="4" fill="#ffd278"/>
+          <circle class="pulse p3" r="4" fill="#ffd6b2"/>
+        </g>
+      </svg>
+
+      <div class="arch-stats">
+        <div class="as-card">
+          <span class="as-num">23</span>
+          <span class="as-lbl">providers</span>
+        </div>
+        <div class="as-card">
+          <span class="as-num">142<i>ms</i></span>
+          <span class="as-lbl">added latency p99</span>
+        </div>
+        <div class="as-card">
+          <span class="as-num">99.999<i>%</i></span>
+          <span class="as-lbl">routed uptime</span>
+        </div>
+        <div class="as-card">
+          <span class="as-num">SOC 2</span>
+          <span class="as-lbl">audited yearly</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CODE SDK TABS -->
+  <section class="sdk" id="docs">
+    <div class="section-head">
+      <span class="section-label"><span class="violet">[04]</span> SDK</span>
+      <h2 class="section-title">
+        <span class="reveal">If you can call</span>
+        <span class="reveal gradient-text">OpenAI, you can call PRISM.</span>
+      </h2>
+    </div>
+
+    <div class="sdk-tabs">
+      <button class="sdk-tab is-active" data-lang="py">Python</button>
+      <button class="sdk-tab" data-lang="ts">TypeScript</button>
+      <button class="sdk-tab" data-lang="go">Go</button>
+      <button class="sdk-tab" data-lang="curl">curl</button>
+    </div>
+    <pre class="sdk-code" id="sdkCode"></pre>
+  </section>
+
+  <!-- LIVE DASHBOARD PREVIEW -->
+  <section class="dash">
+    <div class="section-head">
+      <span class="section-label"><span class="cyan">[05]</span> Dashboard</span>
+      <h2 class="section-title">
+        <span class="reveal">Every token,</span>
+        <span class="reveal gradient-text">accounted for.</span>
+      </h2>
+    </div>
+
+    <div class="dash-frame">
+      <div class="dash-head">
+        <span class="dash-bullets"><i></i><i></i><i></i></span>
+        <span class="dash-url">app.prism.ai · production · us-east-1</span>
+        <span class="dash-live"><span class="dot-good"></span> LIVE</span>
+      </div>
+
+      <div class="dash-body">
+        <div class="dash-kpis">
+          <div><span>Tokens / s</span><strong id="dashTps">2,184</strong></div>
+          <div><span>Requests / hr</span><strong id="dashReq">1.4M</strong></div>
+          <div><span>Cost saved (mo)</span><strong class="lime">$48,210</strong></div>
+          <div><span>p99 latency</span><strong>142<i>ms</i></strong></div>
+          <div><span>Cache hit</span><strong class="cyan">38%</strong></div>
+        </div>
+
+        <!-- Live sparkline -->
+        <div class="dash-chart">
+          <p class="dash-chart-lbl">Tokens routed · last 60 min</p>
+          <svg class="spark" viewBox="0 0 600 140" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="sparkFill" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#ff7600" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#ff7600" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path id="sparkPath" stroke="#ff7600" stroke-width="2" fill="none"/>
+            <path id="sparkArea" fill="url(#sparkFill)"/>
+          </svg>
+        </div>
+
+        <!-- Provider mix -->
+        <div class="dash-mix">
+          <p class="dash-chart-lbl">Provider mix · last 24h</p>
+          <div class="mix-bars">
+            <div><span>GPT-4o</span><span class="mix-bar"><i style="width:42%"></i></span><strong>42%</strong></div>
+            <div><span>Claude 4.5</span><span class="mix-bar"><i style="width:28%; background: var(--cyan);"></i></span><strong>28%</strong></div>
+            <div><span>Gemini 2.5</span><span class="mix-bar"><i style="width:14%; background: var(--pink);"></i></span><strong>14%</strong></div>
+            <div><span>Llama 4</span><span class="mix-bar"><i style="width:10%; background: var(--lime);"></i></span><strong>10%</strong></div>
+            <div><span>Other</span><span class="mix-bar"><i style="width:6%; background: rgba(255,255,255,.3);"></i></span><strong>6%</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="section-head">
+      <span class="section-label"><span class="lime">[06]</span> Pricing</span>
+      <h2 class="section-title">
+        <span class="reveal">Pay for what you</span>
+        <span class="reveal gradient-text">actually route.</span>
+      </h2>
+      <p class="section-sub">No seat fees. No premium tier. PRISM is a thin margin (1¢ per 1k routed tokens) on top of provider pricing.</p>
+    </div>
+
+    <div class="price-slider-wrap">
+      <div class="ps-row">
+        <span class="ps-lbl">tokens / month</span>
+        <span class="ps-val" id="psVolume">12M</span>
+      </div>
+      <input type="range" id="psRange" min="1" max="100" step="1" value="12" class="ps-range"/>
+      <div class="ps-axis">
+        <span>100k</span><span>1M</span><span>10M</span><span>100M</span><span>1B</span>
+      </div>
+
+      <div class="ps-out">
+        <div class="ps-out-row">
+          <span class="ps-out-lbl">Provider cost</span>
+          <span class="ps-out-val" id="psProvider">$240</span>
+        </div>
+        <div class="ps-out-row">
+          <span class="ps-out-lbl">PRISM margin</span>
+          <span class="ps-out-val" id="psMargin">$120</span>
+        </div>
+        <div class="ps-out-row total">
+          <span class="ps-out-lbl">Monthly total</span>
+          <span class="ps-out-val gradient-text" id="psTotal">$360</span>
+        </div>
+        <div class="ps-savings">
+          <span class="dot-good"></span>
+          <span>You save <strong id="psSavings">$170</strong> / mo vs vanilla provider APIs</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="price-tiers">
+      <article class="tier">
+        <h3>Hobby</h3>
+        <p class="tier-price">$0</p>
+        <ul><li>1M tokens / mo free</li><li>All providers</li><li>Community support</li></ul>
+      </article>
+      <article class="tier featured">
+        <span class="tier-ribbon">Most popular</span>
+        <h3>Team</h3>
+        <p class="tier-price">$1 <span>/ k req</span></p>
+        <ul><li>Unlimited tokens</li><li>Smart routing</li><li>Semantic cache</li><li>OpenTelemetry</li><li>9×5 support</li></ul>
+      </article>
+      <article class="tier">
+        <h3>Enterprise</h3>
+        <p class="tier-price">Custom</p>
+        <ul><li>VPC peering</li><li>On-prem option</li><li>SOC 2 evidence</li><li>BYO model gateway</li><li>24/7 ops</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="quotes">
+    <div class="quote-grid">
+      <figure class="qu">
+        <p>"We cut our Claude bill by 64% without touching application code. PRISM just slotted in."</p>
+        <figcaption><strong>— Mira O.</strong><span>Staff Eng, Cursor</span></figcaption>
+      </figure>
+      <figure class="qu">
+        <p>"The semantic cache alone paid for itself in three days. Now it pays for our team coffees."</p>
+        <figcaption><strong>— Devon R.</strong><span>CTO, Tessera</span></figcaption>
+      </figure>
+      <figure class="qu">
+        <p>"When OpenAI had that 4-hour outage in March, our app didn't blink. We failed over to Claude in 280ms."</p>
+        <figcaption><strong>— Hana S.</strong><span>Head of Infra, Northstar</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="cust-strip">
+      <span class="cs-eyebrow">— 4,200+ teams shipping with PRISM —</span>
+      <div class="cs-track">
+        <span>CURSOR</span><span>·</span>
+        <span>LINEAR</span><span>·</span>
+        <span>VERCEL</span><span>·</span>
+        <span>NOTION</span><span>·</span>
+        <span>FIGMA</span><span>·</span>
+        <span>REPLIT</span><span>·</span>
+        <span>RUNWAY</span><span>·</span>
+        <span>RAMP</span><span>·</span>
+        <span>RETOOL</span><span>·</span>
+        <span>SUPABASE</span><span>·</span>
+        <span>CURSOR</span><span>·</span>
+        <span>LINEAR</span><span>·</span>
+        <span>VERCEL</span><span>·</span>
+        <span>NOTION</span><span>·</span>
+        <span>FIGMA</span><span>·</span>
+        <span>REPLIT</span><span>·</span>
+        <span>RUNWAY</span><span>·</span>
+        <span>RAMP</span><span>·</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="cta">
+    <div class="cta-card">
+      <span class="cta-eyebrow">Get started in 60 seconds</span>
+      <h2 class="cta-title">
+        <span class="reveal">Ship intelligent</span>
+        <span class="reveal gradient-text">faster than ever.</span>
+      </h2>
+      <p class="cta-sub">1M tokens / month, every provider, every feature — free, forever, no card.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-primary">
+          <span>Start routing — free</span>
+          <svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        </a>
+        <a href="#" class="btn btn-ghost">Talk to sales</a>
+      </div>
+      <p class="cta-code mono">$ pip install prism &amp;&amp; prism login</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="blog">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#" class="brand">
+          <span class="brand-glyph">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2 L22 10 L18 22 L6 22 L2 10 Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </span>
+          <span class="brand-text">PRISM</span>
+        </a>
+        <p class="foot-tag">The intelligence layer for the modern internet.</p>
+        <div class="foot-status">
+          <span class="dot-good"></span>
+          <span>All systems operational</span>
+          <span class="foot-status-sep">·</span>
+          <span class="foot-status-meta" id="footStatusTime">UTC --:--:--</span>
+        </div>
+      </div>
+
+      <div class="foot-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#">Routing</a></li>
+          <li><a href="#">Cache</a></li>
+          <li><a href="#">Observability</a></li>
+          <li><a href="#">Gateway</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Developers</h4>
+        <ul>
+          <li><a href="#">Docs</a></li>
+          <li><a href="#">SDKs</a></li>
+          <li><a href="#">API ref</a></li>
+          <li><a href="#">Status</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Customers</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">DPA</a></li>
+          <li><a href="#">Trust</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-mega" aria-hidden="true">PRISM</div>
+
+    <div class="foot-bottom">
+      <span>© 2026 Prism Systems Inc.</span>
+      <span class="foot-meta mono">v 4.0.2 · build aux-7e3 · us-east-1</span>
+      <span><a href="#">github</a> · <a href="#">x</a> · <a href="#">discord</a> · <a href="#">linkedin</a></span>
+    </div>
+  </footer>
+
+  <!-- LIBS -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

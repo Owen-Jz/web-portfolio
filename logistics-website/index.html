@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MERIDIAN — freight without friction. Ocean, air, ground & warehousing across 142 ports. Live tracking, real ETAs, carbon-neutral routes." />
+  <title>MERIDIAN — Freight Without Friction</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- LOADER — terminal boot sequence -->
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <div class="loader-head">
+        <span class="brand-mark">◢◣</span>
+        <span class="loader-id">MERIDIAN · NETWORK BOOT</span>
+        <span class="loader-status">● ONLINE</span>
+      </div>
+      <pre class="loader-log" id="loaderLog"></pre>
+      <div class="loader-bar"><span id="loaderFill"></span></div>
+      <div class="loader-foot">
+        <span>SYS</span>
+        <span id="loaderPct">000</span>
+        <span>/100</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky ticker — KPIs / status updates -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="t-good">● LIVE</span>
+      <span class="t-mono">on-time rate · <strong>98.7%</strong></span>
+      <span class="t-sep">/</span>
+      <span class="t-mono">containers in motion · <strong id="contLive">12,840</strong></span>
+      <span class="t-sep">/</span>
+      <span class="t-mono">last cleared · LAX · 00:00:14 ago</span>
+      <span class="t-sep">/</span>
+      <span class="t-mono">CO₂ offset YTD · <strong>1,284 t</strong></span>
+      <span class="t-sep">/</span>
+      <span class="t-amber">▲ rate alert · TYO → ROT +1.2% wk-on-wk</span>
+      <span class="t-sep">/</span>
+      <span class="t-good">● LIVE</span>
+      <span class="t-mono">on-time rate · <strong>98.7%</strong></span>
+      <span class="t-sep">/</span>
+      <span class="t-mono">containers in motion · <strong>12,840</strong></span>
+      <span class="t-sep">/</span>
+      <span class="t-mono">last cleared · LAX · 00:00:14 ago</span>
+      <span class="t-sep">/</span>
+      <span class="t-mono">CO₂ offset YTD · <strong>1,284 t</strong></span>
+      <span class="t-sep">/</span>
+      <span class="t-amber">▲ rate alert · TYO → ROT +1.2% wk-on-wk</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <a href="#home" class="brand">
+      <span class="brand-mark">◢◣</span>
+      <span class="brand-name">MERIDIAN</span>
+      <span class="brand-sub">FRT/26</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#network">Network</a>
+      <a href="#services">Services</a>
+      <a href="#track">Track</a>
+      <a href="#process">Process</a>
+      <a href="#sustain">Sustainability</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#track" class="nav-track">
+        <span class="dot"></span> Track
+      </a>
+      <a href="#quote" class="nav-cta">
+        <span>Get a Quote</span>
+        <svg viewBox="0 0 24 24" width="13" height="13"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Persistent Three.js stage — single fixed canvas + label overlay
+       that floats between all sections. Lerped by ScrollTrigger so the
+       same globe glides from "hero accent" → "network centerpiece" →
+       "atmospheric backdrop" → etc as the user scrolls. -->
+  <canvas id="globeCanvas" class="globe-stage" aria-hidden="true"></canvas>
+  <div id="globeLabels" class="globe-stage-labels" aria-hidden="true"></div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+    </div>
+
+    <div class="hero-inner">
+      <div class="hero-meta">
+        <span class="meta-chip"><span class="dot-good"></span> NETWORK LIVE · 142 PORTS</span>
+        <span class="meta-mono">42.3601° N — 71.0589° W · BOSTON OPS</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line"><span class="reveal">Freight</span></span>
+        <span class="line"><span class="reveal">without <em class="amber">friction.</em></span></span>
+      </h1>
+
+      <p class="hero-sub">
+        Ocean. Air. Ground. Warehousing. One network — one bill of lading —
+        across 142 ports in 64 countries, with a single API and a 24/7 ops
+        team that calls you before anything goes wrong.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#quote" class="btn btn-amber">
+          <span>Get a rate in 60s</span>
+          <svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        </a>
+        <a href="#track" class="btn btn-ghost">
+          <span>Track a shipment</span>
+        </a>
+      </div>
+
+      <!-- Hero KPI strip -->
+      <div class="hero-kpis">
+        <div class="kpi">
+          <span class="kpi-num" data-count="98.7" data-suffix="%">0</span>
+          <span class="kpi-label">on-time delivery</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-num" data-count="142" >0</span>
+          <span class="kpi-label">ports · 64 countries</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-num" data-count="36" data-prefix="">0</span>
+          <span class="kpi-suffix"> min</span>
+          <span class="kpi-label">avg. customs clearance</span>
+        </div>
+        <div class="kpi">
+          <span class="kpi-num" data-count="12840" >0</span>
+          <span class="kpi-label">containers in motion</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating radar / map card top-right -->
+    <div class="hero-card hero-card-radar">
+      <div class="hc-head">
+        <span><span class="dot-good"></span> ACTIVE TRACK · MX-4827</span>
+        <span class="hc-time">12d 04h 22m</span>
+      </div>
+      <div class="hc-route">
+        <span class="hc-port">SHA</span>
+        <span class="hc-line"><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="hc-port hc-port-mid">SIN</span>
+        <span class="hc-line"><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="hc-port">ROT</span>
+      </div>
+      <div class="hc-body">
+        <div class="hc-row"><span>Mode</span><span>Ocean · 40HQ</span></div>
+        <div class="hc-row"><span>ETA</span><span>2026-07-04 09:12 UTC</span></div>
+        <div class="hc-row"><span>Status</span><span class="amber">▲ on schedule</span></div>
+        <div class="hc-row"><span>Carbon</span><span class="lime">offset</span></div>
+      </div>
+    </div>
+
+    <!-- Floating mini-card bottom-left -->
+    <div class="hero-card hero-card-quote">
+      <div class="hc-head">
+        <span><span class="dot-amber"></span> 60s QUOTE</span>
+      </div>
+      <div class="quote-line"><span>SHA</span><span class="arrow">→</span><span>LAX</span></div>
+      <div class="quote-price">
+        <span class="qp-from">FROM</span>
+        <span class="qp-amt">$2,840</span>
+        <span class="qp-mode">/ 40HQ · ocean</span>
+      </div>
+      <div class="quote-foot">
+        <span>17 — 22 d transit</span>
+        <span>Sail Tue · Fri</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEYS / PORT MARQUEE -->
+  <section class="port-strip" aria-label="Port codes">
+    <div class="ps-track">
+      <span>LAX</span><span class="ps-dot">●</span>
+      <span>JFK</span><span class="ps-dot">●</span>
+      <span>ROT</span><span class="ps-dot">●</span>
+      <span>SHA</span><span class="ps-dot">●</span>
+      <span>SIN</span><span class="ps-dot">●</span>
+      <span>HAM</span><span class="ps-dot">●</span>
+      <span>NRT</span><span class="ps-dot">●</span>
+      <span>DXB</span><span class="ps-dot">●</span>
+      <span>HKG</span><span class="ps-dot">●</span>
+      <span>FRA</span><span class="ps-dot">●</span>
+      <span>SYD</span><span class="ps-dot">●</span>
+      <span>GRU</span><span class="ps-dot">●</span>
+      <span>YYZ</span><span class="ps-dot">●</span>
+      <span>BCN</span><span class="ps-dot">●</span>
+      <span>ICN</span><span class="ps-dot">●</span>
+      <span>LAX</span><span class="ps-dot">●</span>
+      <span>JFK</span><span class="ps-dot">●</span>
+      <span>ROT</span><span class="ps-dot">●</span>
+      <span>SHA</span><span class="ps-dot">●</span>
+      <span>SIN</span><span class="ps-dot">●</span>
+      <span>HAM</span><span class="ps-dot">●</span>
+      <span>NRT</span><span class="ps-dot">●</span>
+      <span>DXB</span><span class="ps-dot">●</span>
+      <span>HKG</span><span class="ps-dot">●</span>
+      <span>FRA</span><span class="ps-dot">●</span>
+    </div>
+  </section>
+
+  <!-- NETWORK / COVERAGE MAP -->
+  <section class="network" id="network">
+    <div class="section-head">
+      <span class="section-label"><span class="amber">[01]</span> Network</span>
+      <h2 class="section-title">
+        <span class="reveal">Three modes.</span>
+        <span class="reveal"><em class="amber">One</em> network.</span>
+      </h2>
+    </div>
+
+    <div class="map-wrap">
+      <div class="map-stage map-stage-empty">
+        <!-- Globe is rendered by the persistent fixed canvas above —
+             this box just hosts the HUD overlays so they land on top
+             of the globe whenever the network section is in view. -->
+
+        <!-- HUD overlays on the map -->
+        <div class="hud hud-tl">
+          <div class="hud-row"><span class="hud-label">UTC</span><span id="hudUtc" class="hud-val">--:--:--</span></div>
+          <div class="hud-row"><span class="hud-label">Vessels</span><span class="hud-val">218</span></div>
+          <div class="hud-row"><span class="hud-label">Air freight</span><span class="hud-val">76</span></div>
+          <div class="hud-row"><span class="hud-label">Trucks</span><span class="hud-val">3,402</span></div>
+        </div>
+
+        <div class="hud hud-br">
+          <div class="hud-row"><span class="hud-label">Coverage</span><span class="hud-val">142 ports · 64 countries</span></div>
+          <div class="hud-row"><span class="hud-label">Lanes active</span><span class="hud-val">1,408</span></div>
+          <div class="hud-row"><span class="hud-label">On-time / 24h</span><span class="hud-val lime">99.1%</span></div>
+        </div>
+      </div>
+
+      <p class="map-legend">
+        <span><span class="lg-dot lg-amber"></span> Active lane</span>
+        <span><span class="lg-dot lg-lime"></span> Sustainable lane</span>
+        <span><span class="lg-dot lg-blue"></span> In transit</span>
+        <span class="legend-note">Live data refreshes every 60s · last sync 0:14</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-head">
+      <span class="section-label"><span class="amber">[02]</span> Services</span>
+      <h2 class="section-title">
+        <span class="reveal">Whatever you ship.</span>
+        <span class="reveal"><em class="amber">However</em> it has to move.</span>
+      </h2>
+    </div>
+
+    <div class="service-grid">
+      <article class="service">
+        <div class="service-head">
+          <span class="service-num">01</span>
+          <svg class="service-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M3 22 L29 22 L26 26 L6 26 Z" />
+            <rect x="6" y="14" width="20" height="8" rx="1"/>
+            <circle cx="11" cy="27" r="1.5" fill="currentColor"/>
+            <circle cx="21" cy="27" r="1.5" fill="currentColor"/>
+            <path d="M10 14 V8 H22 V14"/>
+          </svg>
+        </div>
+        <h3>Ocean Freight</h3>
+        <p>FCL, LCL & breakbulk on 38 partner lines. NVOCC-licensed in 12 jurisdictions.</p>
+        <ul>
+          <li>Door-to-door & port-to-port</li>
+          <li>Bonded warehousing at every hub</li>
+          <li>SOC & shipper-owned containers</li>
+        </ul>
+        <a href="#" class="service-cta">Sail rates →</a>
+      </article>
+
+      <article class="service">
+        <div class="service-head">
+          <span class="service-num">02</span>
+          <svg class="service-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M3 22 L18 22 L29 6 L23 6 L14 18 L4 18 Z"/>
+            <path d="M3 22 L6 26 L11 26 L14 22"/>
+          </svg>
+        </div>
+        <h3>Air Freight</h3>
+        <p>Next-flight-out, consolidated and charter. Tier-1 carrier contracts on every continent.</p>
+        <ul>
+          <li>Time-definite SLAs</li>
+          <li>Temp-controlled & DGR-certified</li>
+          <li>Dedicated charter desk</li>
+        </ul>
+        <a href="#" class="service-cta">Fly rates →</a>
+      </article>
+
+      <article class="service">
+        <div class="service-head">
+          <span class="service-num">03</span>
+          <svg class="service-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="2" y="12" width="18" height="10"/>
+            <path d="M20 14 H28 V22 H20 Z"/>
+            <circle cx="8"  cy="24" r="2"/>
+            <circle cx="24" cy="24" r="2"/>
+            <path d="M2 17 H20"/>
+          </svg>
+        </div>
+        <h3>Ground & Drayage</h3>
+        <p>4,200 owner-operators across NA & EU. Same-day intermodal, last-mile, white-glove.</p>
+        <ul>
+          <li>FTL · LTL · expedited</li>
+          <li>Reefer & flatbed</li>
+          <li>Real-time GPS on every haul</li>
+        </ul>
+        <a href="#" class="service-cta">Land rates →</a>
+      </article>
+
+      <article class="service">
+        <div class="service-head">
+          <span class="service-num">04</span>
+          <svg class="service-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M3 14 L16 5 L29 14 V28 H3 Z"/>
+            <path d="M11 28 V20 H21 V28"/>
+            <path d="M16 5 V12"/>
+          </svg>
+        </div>
+        <h3>Warehousing &amp; 3PL</h3>
+        <p>2.4M ft² of bonded storage. WMS API. Pick, pack, ship — to any address in the world.</p>
+        <ul>
+          <li>Real-time inventory API</li>
+          <li>Returns &amp; reverse logistics</li>
+          <li>Kitting, labelling, value-add</li>
+        </ul>
+        <a href="#" class="service-cta">Storage rates →</a>
+      </article>
+
+      <article class="service service-wide">
+        <div class="service-head">
+          <span class="service-num">05</span>
+          <svg class="service-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <circle cx="16" cy="16" r="11"/>
+            <path d="M16 8 V16 L21 19"/>
+          </svg>
+        </div>
+        <h3>Customs &amp; Brokerage</h3>
+        <p>Licensed brokers in 18 countries. AEO &amp; CTPAT-certified. 24-hour ruling turnaround.</p>
+        <a href="#" class="service-cta">See compliance →</a>
+      </article>
+
+      <article class="service service-wide service-dark">
+        <div class="service-head">
+          <span class="service-num">06</span>
+          <svg class="service-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M6 26 V12 L16 4 L26 12 V26"/>
+            <path d="M12 26 V18 H20 V26"/>
+            <path d="M14 12 H18"/>
+          </svg>
+        </div>
+        <h3>Project Cargo</h3>
+        <p>Oversized, heavy-lift, out-of-gauge. Wind turbines, transformers, plant equipment.</p>
+        <a href="#" class="service-cta">Move heavy →</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- TRACK SHIPMENT WIDGET -->
+  <section class="track" id="track">
+    <div class="track-grid">
+      <div class="track-text">
+        <span class="section-label"><span class="amber">[03]</span> Track</span>
+        <h2 class="section-title">
+          <span class="reveal">Where is</span>
+          <span class="reveal">your <em class="amber">cargo?</em></span>
+        </h2>
+        <p class="track-sub">
+          Drop a B/L, AWB or PO number. We&rsquo;ll surface the live position,
+          last scan, customs status and ETA — drawn from the same ops view our
+          team uses internally.
+        </p>
+        <ul class="track-features">
+          <li><span class="amber">▸</span> Multi-mode (sea / air / road / rail)</li>
+          <li><span class="amber">▸</span> Webhook & API for your systems</li>
+          <li><span class="amber">▸</span> SMS &amp; Slack proactive alerts</li>
+        </ul>
+      </div>
+
+      <form class="track-widget" id="trackForm" onsubmit="return false;">
+        <div class="tw-head">
+          <span><span class="dot-good"></span> LIVE OPS</span>
+          <span class="tw-time" id="twTime">UTC --:--:--</span>
+        </div>
+
+        <div class="tw-input">
+          <label>Tracking number</label>
+          <div class="tw-row">
+            <input type="text" id="trackInput" placeholder="MX-4827  ·  HLBU-9182734  ·  AWB-074-12345678" />
+            <button type="submit">Find</button>
+          </div>
+        </div>
+
+        <div class="tw-result" id="trackResult" data-empty="true">
+          <p class="tw-empty">Try <button type="button" class="link-amber" id="trySample">MX-4827</button> for a sample shipment.</p>
+
+          <div class="tw-found">
+            <div class="tw-found-head">
+              <div>
+                <p class="tw-label">B/L</p>
+                <p class="tw-id">MX-4827 · 40HQ · OCEAN</p>
+              </div>
+              <span class="badge-good"><span class="dot-good"></span> ON SCHEDULE</span>
+            </div>
+
+            <div class="tw-route">
+              <div class="tw-port">
+                <p class="tw-label">From</p>
+                <p class="tw-code">SHA</p>
+                <p class="tw-place">Shanghai</p>
+              </div>
+              <div class="tw-rail" aria-hidden="true">
+                <div class="tw-rail-track"><div class="tw-rail-fill" id="trackRailFill"></div></div>
+                <span class="tw-rail-vessel" id="trackVessel">▾</span>
+                <p class="tw-rail-stops"><span>SHA</span><span>SIN</span><span>HAM</span><span>ROT</span></p>
+              </div>
+              <div class="tw-port">
+                <p class="tw-label">To</p>
+                <p class="tw-code">ROT</p>
+                <p class="tw-place">Rotterdam</p>
+              </div>
+            </div>
+
+            <div class="tw-grid">
+              <div><span class="tw-label">ETA</span><strong>2026-07-04 09:12 UTC</strong></div>
+              <div><span class="tw-label">In transit</span><strong>12d 04h 22m</strong></div>
+              <div><span class="tw-label">Last scan</span><strong>SIN · 14:08 UTC</strong></div>
+              <div><span class="tw-label">Carrier</span><strong>HMM · Hyundai Merchant</strong></div>
+            </div>
+
+            <ol class="tw-timeline">
+              <li class="done"><span class="dot"></span><div><p>Loaded · SHA</p><p>2026-06-22 11:02 UTC</p></div></li>
+              <li class="done"><span class="dot"></span><div><p>Cleared · SHA Customs</p><p>2026-06-22 18:40 UTC</p></div></li>
+              <li class="done"><span class="dot"></span><div><p>Transshipment · SIN</p><p>2026-06-30 14:08 UTC</p></div></li>
+              <li class="active"><span class="dot"></span><div><p>In transit · Indian Ocean</p><p>Last ping 00:00:14 ago</p></div></li>
+              <li><span class="dot"></span><div><p>Arrive · ROT</p><p>ETA 2026-07-04 09:12 UTC</p></div></li>
+              <li><span class="dot"></span><div><p>Customs · NL</p><p>~ 2026-07-04 16:00 UTC</p></div></li>
+            </ol>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- PARALLAX BAND -->
+  <section class="parallax-band">
+    <div class="pb-bg" data-speed="0.3">
+      <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=2200&q=80" alt=""/>
+    </div>
+    <div class="pb-veil"></div>
+    <div class="pb-inner">
+      <span class="section-label">[04] Scale</span>
+      <h2 class="pb-title">
+        <span class="reveal">2.1 million</span>
+        <span class="reveal"><em class="amber">cleared</em> containers</span>
+        <span class="reveal">last fiscal year.</span>
+      </h2>
+      <p class="pb-meta">Mostly without a single phone call.</p>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process" id="process">
+    <div class="section-head">
+      <span class="section-label"><span class="amber">[05]</span> Process</span>
+      <h2 class="section-title">
+        <span class="reveal">Five steps,</span>
+        <span class="reveal">zero <em class="amber">unknowns.</em></span>
+      </h2>
+    </div>
+
+    <ol class="process-rail">
+      <li class="step">
+        <span class="step-num">01</span>
+        <h3>Quote</h3>
+        <p>Drop origin, destination, mode, weight. 60-second algorithmic estimate, human-confirmed inside an hour.</p>
+        <span class="step-time">~ 60s</span>
+      </li>
+      <li class="step">
+        <span class="step-num">02</span>
+        <h3>Book</h3>
+        <p>One contract for every leg — ocean, air, ground, brokerage. Single B/L, single invoice.</p>
+        <span class="step-time">~ 4h</span>
+      </li>
+      <li class="step">
+        <span class="step-num">03</span>
+        <h3>Move</h3>
+        <p>Pickup scheduled. Customs paperwork pre-filed. SMS + Slack alerts at every scan.</p>
+        <span class="step-time">live</span>
+      </li>
+      <li class="step">
+        <span class="step-num">04</span>
+        <h3>Clear</h3>
+        <p>Brokerage handled at destination. Duties advanced. No surprise demurrage.</p>
+        <span class="step-time">~ 36 min avg</span>
+      </li>
+      <li class="step">
+        <span class="step-num">05</span>
+        <h3>Deliver</h3>
+        <p>Last-mile to the door, the dock or the assembly line. Proof-of-delivery in 60s.</p>
+        <span class="step-time">on the day</span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="industries">
+    <div class="section-head">
+      <span class="section-label"><span class="amber">[06]</span> Industries</span>
+      <h2 class="section-title">
+        <span class="reveal">Who we move <em class="amber">for.</em></span>
+      </h2>
+    </div>
+
+    <div class="ind-grid">
+      <article class="ind">
+        <svg viewBox="0 0 32 32" class="ind-icon" aria-hidden="true">
+          <rect x="4" y="9" width="24" height="16" rx="1"/>
+          <path d="M4 14 H28 M10 9 V6 H22 V9"/>
+        </svg>
+        <h3>E-commerce</h3>
+        <p>Direct-to-consumer fulfilment, returns, peak-season scale.</p>
+        <span class="ind-num">428 brands</span>
+      </article>
+      <article class="ind">
+        <svg viewBox="0 0 32 32" class="ind-icon" aria-hidden="true">
+          <path d="M4 22 L8 14 H24 L28 22 V26 H4 Z"/>
+          <circle cx="10" cy="26" r="2"/>
+          <circle cx="22" cy="26" r="2"/>
+          <path d="M8 18 H24"/>
+        </svg>
+        <h3>Automotive</h3>
+        <p>JIT parts, KD vehicle kits, EV battery lanes (DGR-certified).</p>
+        <span class="ind-num">14 OEMs</span>
+      </article>
+      <article class="ind">
+        <svg viewBox="0 0 32 32" class="ind-icon" aria-hidden="true">
+          <rect x="6" y="4" width="20" height="24" rx="2"/>
+          <path d="M16 10 V22 M10 16 H22"/>
+        </svg>
+        <h3>Pharma &amp; Life Sciences</h3>
+        <p>GDP-compliant cold chain, 2-8°C and -20°C reefers, time-definite air.</p>
+        <span class="ind-num">9 manufacturers</span>
+      </article>
+      <article class="ind">
+        <svg viewBox="0 0 32 32" class="ind-icon" aria-hidden="true">
+          <path d="M6 28 V14 L16 6 L26 14 V28"/>
+          <path d="M12 28 V20 H20 V28"/>
+        </svg>
+        <h3>Energy &amp; Industrial</h3>
+        <p>Wind blades, transformers, oil &amp; gas equipment. Project-cargo expertise.</p>
+        <span class="ind-num">$680M YTD</span>
+      </article>
+      <article class="ind">
+        <svg viewBox="0 0 32 32" class="ind-icon" aria-hidden="true">
+          <path d="M4 26 C 8 18, 14 16, 16 14 C 18 16, 24 18, 28 26"/>
+          <path d="M16 14 V6 M12 10 H20"/>
+        </svg>
+        <h3>Agri &amp; Perishables</h3>
+        <p>Reefer ocean, controlled-atmosphere, port-to-supermarket in 9 days.</p>
+        <span class="ind-num">1.8M tons / yr</span>
+      </article>
+      <article class="ind">
+        <svg viewBox="0 0 32 32" class="ind-icon" aria-hidden="true">
+          <circle cx="16" cy="16" r="11"/>
+          <path d="M16 5 V27 M5 16 H27 M9 9 L23 23 M23 9 L9 23" opacity=".4"/>
+        </svg>
+        <h3>Mission-Critical</h3>
+        <p>Defence, aerospace, humanitarian — chartered when the line stops.</p>
+        <span class="ind-num">7 govt. contracts</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- LOGOS MARQUEE -->
+  <section class="logos">
+    <p class="logos-eyebrow">— Trusted to move freight for —</p>
+    <div class="logos-track">
+      <span>NORTHWIND</span><span>·</span>
+      <span>ARROYO BIO</span><span>·</span>
+      <span>VESPER STUDIO</span><span>·</span>
+      <span>HELIOS MOTORS</span><span>·</span>
+      <span>CALEDON ENERGY</span><span>·</span>
+      <span>OLIVE &amp; EMBER</span><span>·</span>
+      <span>IRONPULSE</span><span>·</span>
+      <span>HALCYON LABS</span><span>·</span>
+      <span>MERIDIAN ROBOTICS</span><span>·</span>
+      <span>NORTHWIND</span><span>·</span>
+      <span>ARROYO BIO</span><span>·</span>
+      <span>VESPER STUDIO</span><span>·</span>
+      <span>HELIOS MOTORS</span><span>·</span>
+      <span>CALEDON ENERGY</span><span>·</span>
+      <span>OLIVE &amp; EMBER</span><span>·</span>
+      <span>IRONPULSE</span><span>·</span>
+      <span>HALCYON LABS</span><span>·</span>
+      <span>MERIDIAN ROBOTICS</span><span>·</span>
+    </div>
+  </section>
+
+  <!-- SUSTAINABILITY -->
+  <section class="sustain" id="sustain">
+    <div class="sustain-grid">
+      <div class="sustain-left">
+        <span class="section-label"><span class="lime">[07]</span> Sustainability</span>
+        <h2 class="section-title">
+          <span class="reveal">We measure</span>
+          <span class="reveal">every <em class="lime">gram.</em></span>
+        </h2>
+        <p class="sustain-sub">
+          Carbon recorded per leg, per container, per ton-kilometre — audited
+          quarterly by SGS. Members opt into a bio-fuel surcharge that swaps
+          fossil diesel for HVO on the long-haul.
+        </p>
+        <div class="sustain-stats">
+          <div class="ss">
+            <span class="ss-num" data-count="1284" data-suffix=" t">0</span>
+            <span class="ss-lbl">CO₂ offset YTD</span>
+          </div>
+          <div class="ss">
+            <span class="ss-num" data-count="42" data-suffix="%">0</span>
+            <span class="ss-lbl">routes on HVO</span>
+          </div>
+          <div class="ss">
+            <span class="ss-num" data-count="68" data-suffix="%">0</span>
+            <span class="ss-lbl">last-mile EV</span>
+          </div>
+        </div>
+        <a href="#" class="link-amber">Download our 2026 audit (PDF) →</a>
+      </div>
+      <div class="sustain-right">
+        <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?auto=format&fit=crop&w=1400&q=80" alt="Industrial port at sunset"/>
+        <div class="cert-strip">
+          <span>ISO 14001</span>
+          <span>·</span>
+          <span>SBTi 1.5°C</span>
+          <span>·</span>
+          <span>CDP A-list</span>
+          <span>·</span>
+          <span>SBTi-certified</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE CALCULATOR -->
+  <section class="quote" id="quote">
+    <div class="quote-grid">
+      <div class="quote-text">
+        <span class="section-label"><span class="amber">[08]</span> Quote</span>
+        <h2 class="section-title">
+          <span class="reveal">Get a rate</span>
+          <span class="reveal">in <em class="amber">60 seconds.</em></span>
+        </h2>
+        <p class="quote-sub">No login. No back-and-forth. Algorithmic estimate now, signed quote by tomorrow morning.</p>
+        <p class="quote-disclaimer">Estimates assume DDU. Add'l services priced on contract.</p>
+      </div>
+
+      <form class="quote-form" id="quoteForm" onsubmit="return false;">
+        <div class="qf-tabs">
+          <button type="button" class="qf-tab is-active" data-mode="ocean">Ocean</button>
+          <button type="button" class="qf-tab" data-mode="air">Air</button>
+          <button type="button" class="qf-tab" data-mode="ground">Ground</button>
+        </div>
+
+        <div class="qf-row">
+          <label>From <input type="text" value="SHA" id="qfFrom"/></label>
+          <label>To   <input type="text" value="LAX" id="qfTo"/></label>
+        </div>
+        <div class="qf-row">
+          <label>Weight <input type="number" value="12000" id="qfWeight"/> <span class="qf-unit">kg</span></label>
+          <label>Volume <input type="number" value="48" id="qfVolume"/> <span class="qf-unit">m³</span></label>
+        </div>
+        <div class="qf-row">
+          <label class="qf-toggle"><input type="checkbox" id="qfCarbon" checked/> Carbon-offset</label>
+          <label class="qf-toggle"><input type="checkbox" id="qfInsurance"/> All-risk insurance</label>
+        </div>
+
+        <div class="qf-out">
+          <div class="qfo-row">
+            <span class="qfo-lbl">Estimate</span>
+            <span class="qfo-amt" id="qfoAmt">$2,840</span>
+          </div>
+          <div class="qfo-row">
+            <span class="qfo-lbl">Transit</span>
+            <span class="qfo-val" id="qfoTransit">17 — 22 days</span>
+          </div>
+          <div class="qfo-row">
+            <span class="qfo-lbl">Carbon</span>
+            <span class="qfo-val" id="qfoCarbon">2.18 t CO₂e</span>
+          </div>
+        </div>
+
+        <button type="button" class="qf-cta" id="qfBook">
+          <span>Continue to booking</span>
+          <svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="brand-mark">◢◣</span>
+        <span class="foot-name">MERIDIAN</span>
+        <p class="foot-tag">Freight without friction.<br/>Boston · Rotterdam · Shanghai · Singapore.</p>
+      </div>
+
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Ocean</a></li>
+          <li><a href="#services">Air</a></li>
+          <li><a href="#services">Ground</a></li>
+          <li><a href="#services">Warehousing</a></li>
+          <li><a href="#services">Customs</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#sustain">Sustainability</a></li>
+          <li><a href="#">Newsroom</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Investors</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#track">Track</a></li>
+          <li><a href="#quote">Get a quote</a></li>
+          <li><a href="#">API docs</a></li>
+          <li><a href="#">Help centre</a></li>
+          <li><a href="#">Contact ops</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-ops">
+        <h4>24/7 OPS DESK</h4>
+        <p class="foot-phone">+1 (617) 555-MOVE</p>
+        <p class="foot-email">ops@meridian.frt</p>
+        <div class="foot-status">
+          <span><span class="dot-good"></span> All systems nominal</span>
+          <span class="foot-status-time" id="footTime">UTC --:--:--</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-strip">
+      <div class="foot-strip-track">
+        <span>● ISO 9001</span><span>·</span>
+        <span>● ISO 14001</span><span>·</span>
+        <span>● AEO</span><span>·</span>
+        <span>● C-TPAT</span><span>·</span>
+        <span>● IATA-CASS</span><span>·</span>
+        <span>● FIATA</span><span>·</span>
+        <span>● SBTi 1.5°C</span><span>·</span>
+        <span>● CDP A-list</span><span>·</span>
+        <span>● ISO 9001</span><span>·</span>
+        <span>● ISO 14001</span><span>·</span>
+        <span>● AEO</span><span>·</span>
+        <span>● C-TPAT</span><span>·</span>
+        <span>● IATA-CASS</span><span>·</span>
+        <span>● FIATA</span><span>·</span>
+        <span>● SBTi 1.5°C</span><span>·</span>
+        <span>● CDP A-list</span><span>·</span>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2026 Meridian Freight Holdings, LLC.</span>
+      <span class="foot-meta">v 4.21.0 · build 20260615 · region us-east-1</span>
+      <span><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Tariffs</a></span>
+    </div>
+  </footer>
+
+  <!-- LIBS -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Three r149 — last release where build/three.min.js is non-deprecated.
+       Newer versions print a console warning at load and want ES modules. -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
