@@ -409,54 +409,17 @@
             <input type="text" id="trackInput" placeholder="MX-4827  ·  HLBU-9182734  ·  AWB-074-12345678" />
             <button type="submit">Find</button>
           </div>
+          <!-- Subtle demo hint — sample codes a visitor can try. -->
+          <p class="tw-hint" id="twSamples"><span class="tw-hint-lead">demo</span></p>
         </div>
 
         <div class="tw-result" id="trackResult" data-empty="true">
-          <p class="tw-empty">Try <button type="button" class="link-amber" id="trySample">MX-4827</button> for a sample shipment.</p>
-
-          <div class="tw-found">
-            <div class="tw-found-head">
-              <div>
-                <p class="tw-label">B/L</p>
-                <p class="tw-id">MX-4827 · 40HQ · OCEAN</p>
-              </div>
-              <span class="badge-good"><span class="dot-good"></span> ON SCHEDULE</span>
-            </div>
-
-            <div class="tw-route">
-              <div class="tw-port">
-                <p class="tw-label">From</p>
-                <p class="tw-code">SHA</p>
-                <p class="tw-place">Shanghai</p>
-              </div>
-              <div class="tw-rail" aria-hidden="true">
-                <div class="tw-rail-track"><div class="tw-rail-fill" id="trackRailFill"></div></div>
-                <span class="tw-rail-vessel" id="trackVessel">▾</span>
-                <p class="tw-rail-stops"><span>SHA</span><span>SIN</span><span>HAM</span><span>ROT</span></p>
-              </div>
-              <div class="tw-port">
-                <p class="tw-label">To</p>
-                <p class="tw-code">ROT</p>
-                <p class="tw-place">Rotterdam</p>
-              </div>
-            </div>
-
-            <div class="tw-grid">
-              <div><span class="tw-label">ETA</span><strong>2026-07-04 09:12 UTC</strong></div>
-              <div><span class="tw-label">In transit</span><strong>12d 04h 22m</strong></div>
-              <div><span class="tw-label">Last scan</span><strong>SIN · 14:08 UTC</strong></div>
-              <div><span class="tw-label">Carrier</span><strong>HMM · Hyundai Merchant</strong></div>
-            </div>
-
-            <ol class="tw-timeline">
-              <li class="done"><span class="dot"></span><div><p>Loaded · SHA</p><p>2026-06-22 11:02 UTC</p></div></li>
-              <li class="done"><span class="dot"></span><div><p>Cleared · SHA Customs</p><p>2026-06-22 18:40 UTC</p></div></li>
-              <li class="done"><span class="dot"></span><div><p>Transshipment · SIN</p><p>2026-06-30 14:08 UTC</p></div></li>
-              <li class="active"><span class="dot"></span><div><p>In transit · Indian Ocean</p><p>Last ping 00:00:14 ago</p></div></li>
-              <li><span class="dot"></span><div><p>Arrive · ROT</p><p>ETA 2026-07-04 09:12 UTC</p></div></li>
-              <li><span class="dot"></span><div><p>Customs · NL</p><p>~ 2026-07-04 16:00 UTC</p></div></li>
-            </ol>
+          <div class="tw-empty" id="twEmpty">
+            <p id="twEmptyMsg">Enter a tracking number to see live position, customs status &amp; ETA.</p>
           </div>
+
+          <!-- Populated dynamically by script.js from the SHIPMENTS dataset -->
+          <div class="tw-found" id="twFound"></div>
         </div>
       </form>
     </div>

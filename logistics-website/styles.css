@@ -939,6 +939,42 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-size: 10px; letter-spacing: 0.2em;
   border: 1px solid rgba(182,255,60,.3);
 }
+.badge-amber {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,122,26,.1);
+  color: var(--amber);
+  padding: 6px 10px;
+  font-size: 10px; letter-spacing: 0.2em;
+  border: 1px solid rgba(255,122,26,.3);
+  white-space: nowrap;
+}
+
+/* Subtle demo hint under the tracking input — sample codes a visitor
+   can click to test. Intentionally understated, not a loud CTA. */
+.tw-hint {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px;
+  margin: 10px 0 0;
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.04em;
+  color: var(--ink-mute);
+  opacity: 0.55;
+  transition: opacity .25s ease;
+}
+.tw-hint:hover { opacity: 0.9; }
+.tw-hint-lead {
+  text-transform: uppercase; letter-spacing: 0.22em;
+  font-size: 9px; opacity: 0.8;
+}
+.tw-chip {
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.04em;
+  color: inherit;
+  background: none; border: none; padding: 0;
+  cursor: pointer;
+  border-bottom: 1px dotted transparent;
+  transition: color .2s ease, border-color .2s ease;
+}
+.tw-chip:hover { color: var(--amber); border-bottom-color: var(--amber); }
 
 .tw-route {
   display: grid; grid-template-columns: 60px 1fr 60px;

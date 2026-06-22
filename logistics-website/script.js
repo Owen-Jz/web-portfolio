@@ -196,45 +196,182 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(tick, 1000);
 
   /* ----------------------------------------------------------
-     8. TRACK widget — sample shipment reveal
+     8. TRACK widget — multiple test shipments, live lookup
+     ----------------------------------------------------------
+     A small dataset of fake-but-realistic shipments keyed by
+     tracking number. Typing/submitting a known number renders
+     its route, KPIs and event timeline; an unknown number shows
+     a not-found prompt with the available samples.
   ---------------------------------------------------------- */
-  const trackForm    = document.getElementById("trackForm");
-  const trackInput   = document.getElementById("trackInput");
-  const trackResult  = document.getElementById("trackResult");
-  const trackRailFill= document.getElementById("trackRailFill");
-  const trackVessel  = document.getElementById("trackVessel");
-  const trySample    = document.getElementById("trySample");
+  const trackForm   = document.getElementById("trackForm");
+  const trackInput  = document.getElementById("trackInput");
+  const trackResult = document.getElementById("trackResult");
+  const twFound     = document.getElementById("twFound");
+  const twEmptyMsg  = document.getElementById("twEmptyMsg");
+  const twSamples   = document.getElementById("twSamples");
 
-  const revealTrack = () => {
+  // mode → vessel glyph drawn on the route rail
+  const VESSEL = { OCEAN: "▾", AIR: "✈", GROUND: "▸", RAIL: "▸" };
+
+  const SHIPMENTS = {
+    "MX-4827": {
+      mode: "OCEAN · 40HQ", label: "B/L", status: { text: "ON SCHEDULE", kind: "good" },
+      from: { code: "SHA", place: "Shanghai" }, to: { code: "ROT", place: "Rotterdam" },
+      stops: ["SHA", "SIN", "HAM", "ROT"], progress: 62,
+      eta: "2026-07-04 09:12 UTC", transit: "12d 04h 22m",
+      lastScan: "SIN · 14:08 UTC", carrier: "HMM · Hyundai Merchant",
+      timeline: [
+        ["done",   "Loaded · SHA",             "2026-06-22 11:02 UTC"],
+        ["done",   "Cleared · SHA Customs",    "2026-06-22 18:40 UTC"],
+        ["done",   "Transshipment · SIN",      "2026-06-30 14:08 UTC"],
+        ["active", "In transit · Indian Ocean", "Last ping 00:00:14 ago"],
+        ["",       "Arrive · ROT",             "ETA 2026-07-04 09:12 UTC"],
+        ["",       "Customs · NL",             "~ 2026-07-04 16:00 UTC"],
+      ],
+    },
+    "HLBU-9182734": {
+      mode: "OCEAN · 20GP", label: "Container", status: { text: "ON SCHEDULE", kind: "good" },
+      from: { code: "SHA", place: "Shanghai" }, to: { code: "LAX", place: "Los Angeles" },
+      stops: ["SHA", "PUS", "LAX"], progress: 41,
+      eta: "2026-07-09 06:30 UTC", transit: "06d 19h 10m",
+      lastScan: "PUS · 02:51 UTC", carrier: "ONE · Ocean Network Express",
+      timeline: [
+        ["done",   "Loaded · SHA",            "2026-06-25 08:14 UTC"],
+        ["done",   "Cleared · SHA Customs",   "2026-06-25 15:02 UTC"],
+        ["active", "Transshipment · Busan",   "Last ping 00:02:40 ago"],
+        ["",       "Depart · PUS",            "ETA 2026-06-27 09:00 UTC"],
+        ["",       "Arrive · LAX",            "ETA 2026-07-09 06:30 UTC"],
+        ["",       "Customs · US",            "~ 2026-07-09 13:00 UTC"],
+      ],
+    },
+    "AWB-074-12345678": {
+      mode: "AIR · 3 PCS · 480 kg", label: "AWB", status: { text: "DELAYED", kind: "amber" },
+      from: { code: "HKG", place: "Hong Kong" }, to: { code: "JFK", place: "New York" },
+      stops: ["HKG", "ANC", "JFK"], progress: 78,
+      eta: "2026-06-23 22:40 UTC", transit: "01d 09h 05m",
+      lastScan: "ANC · 19:20 UTC", carrier: "CX · Cathay Cargo",
+      timeline: [
+        ["done",   "Tendered · HKG",          "2026-06-22 09:30 UTC"],
+        ["done",   "Departed · HKG",          "2026-06-22 13:05 UTC"],
+        ["done",   "Transit · Anchorage",     "2026-06-22 19:20 UTC"],
+        ["active", "Held · ANC weather hold", "Re-booked next-flight-out"],
+        ["",       "Arrive · JFK",            "ETA 2026-06-23 22:40 UTC"],
+        ["",       "Customs · US",            "~ 2026-06-24 02:00 UTC"],
+      ],
+    },
+    "MX-5310": {
+      mode: "GROUND · FTL · 53'", label: "PRO", status: { text: "OUT FOR DELIVERY", kind: "good" },
+      from: { code: "LAX", place: "Los Angeles" }, to: { code: "ORD", place: "Chicago" },
+      stops: ["LAX", "ABQ", "ORD"], progress: 88,
+      eta: "2026-06-22 18:00 UTC", transit: "03d 02h 40m",
+      lastScan: "ABQ · 11:46 UTC", carrier: "Meridian Ground · owner-operator #4471",
+      timeline: [
+        ["done",   "Picked up · LAX",         "2026-06-19 15:20 UTC"],
+        ["done",   "In transit · I-40 E",     "2026-06-20 22:10 UTC"],
+        ["done",   "Hub scan · Albuquerque",  "2026-06-21 11:46 UTC"],
+        ["active", "Out for delivery · ORD",  "Last ping 00:00:31 ago"],
+        ["",       "Delivered · ORD dock 12", "ETA 2026-06-22 18:00 UTC"],
+      ],
+    },
+  };
+
+  // Render one shipment's detail block into #twFound.
+  const renderShipment = (s) => {
+    const badgeClass = s.status.kind === "amber" ? "badge-amber" : "badge-good";
+    const dotClass   = s.status.kind === "amber" ? "dot-amber"   : "dot-good";
+    const vessel     = VESSEL[s.mode.split(" ")[0]] || "▾";
+    const stops      = s.stops.map((c) => `<span>${c}</span>`).join("");
+    const timeline   = s.timeline.map(
+      ([state, title, time]) =>
+        `<li class="${state}"><span class="dot"></span><div><p>${title}</p><p>${time}</p></div></li>`
+    ).join("");
+
+    twFound.innerHTML = `
+      <div class="tw-found-head">
+        <div>
+          <p class="tw-label">${s.label}</p>
+          <p class="tw-id">${s.id} · ${s.mode}</p>
+        </div>
+        <span class="${badgeClass}"><span class="${dotClass}"></span> ${s.status.text}</span>
+      </div>
+      <div class="tw-route">
+        <div class="tw-port">
+          <p class="tw-label">From</p>
+          <p class="tw-code">${s.from.code}</p>
+          <p class="tw-place">${s.from.place}</p>
+        </div>
+        <div class="tw-rail" aria-hidden="true">
+          <div class="tw-rail-track"><div class="tw-rail-fill" id="trackRailFill"></div></div>
+          <span class="tw-rail-vessel" id="trackVessel">${vessel}</span>
+          <p class="tw-rail-stops">${stops}</p>
+        </div>
+        <div class="tw-port">
+          <p class="tw-label">To</p>
+          <p class="tw-code">${s.to.code}</p>
+          <p class="tw-place">${s.to.place}</p>
+        </div>
+      </div>
+      <div class="tw-grid">
+        <div><span class="tw-label">ETA</span><strong>${s.eta}</strong></div>
+        <div><span class="tw-label">In transit</span><strong>${s.transit}</strong></div>
+        <div><span class="tw-label">Last scan</span><strong>${s.lastScan}</strong></div>
+        <div><span class="tw-label">Carrier</span><strong>${s.carrier}</strong></div>
+      </div>
+      <ol class="tw-timeline">${timeline}</ol>
+    `;
+
     trackResult.dataset.empty = "false";
-    // Animate the route progress (0 → ~62% complete)
+
+    // Animate route progress + vessel position once layout settles.
+    const fill   = document.getElementById("trackRailFill");
+    const vesEl  = document.getElementById("trackVessel");
     setTimeout(() => {
-      const p = 62; // % progress
-      trackRailFill.style.width = p + "%";
-      trackVessel.style.left = p + "%";
+      if (fill)  fill.style.width  = s.progress + "%";
+      if (vesEl) vesEl.style.left  = s.progress + "%";
     }, 100);
-    // Stagger timeline items
-    const items = trackResult.querySelectorAll(".tw-timeline li");
-    gsap.from(items, {
+
+    gsap.from(twFound.querySelectorAll(".tw-timeline li"), {
       y: 10, opacity: 0, duration: .5, ease: "power3.out", stagger: 0.08,
     });
   };
 
+  // Look up a typed value; render it or show a not-found prompt.
+  const doTrack = (raw) => {
+    const key = raw.trim().toUpperCase();
+    if (!key) {
+      trackInput.style.borderColor = "var(--amber)";
+      return;
+    }
+    trackInput.style.borderColor = "";
+    const s = SHIPMENTS[key];
+    if (s) {
+      renderShipment({ ...s, id: key });
+    } else {
+      trackResult.dataset.empty = "true";
+      twEmptyMsg.textContent = `No shipment found for "${key}". Try a sample:`;
+      twEmptyMsg.style.color = "var(--amber)";
+    }
+  };
+
+  // Build clickable sample chips from the dataset.
+  if (twSamples) {
+    Object.keys(SHIPMENTS).forEach((id) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "tw-chip";
+      b.textContent = id;
+      b.addEventListener("click", () => {
+        trackInput.value = id;
+        doTrack(id);
+      });
+      twSamples.appendChild(b);
+    });
+  }
+
   if (trackForm) {
     trackForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const v = trackInput.value.trim();
-      if (!v) {
-        trackInput.style.borderColor = "var(--amber)";
-        return;
-      }
-      revealTrack();
-    });
-  }
-  if (trySample) {
-    trySample.addEventListener("click", () => {
-      trackInput.value = "MX-4827";
-      revealTrack();
+      doTrack(trackInput.value);
     });
   }
 
@@ -461,9 +598,16 @@ document.addEventListener("DOMContentLoaded", () => {
        a third of the viewport off-center to the right.
        Order MUST match top-to-bottom DOM order.
        ============================================================ */
+    /* `m:` holds a mobile override (<=760px). On a narrow phone viewport
+       the world is much narrower, so the desktop wx:2.7 parks the globe
+       almost entirely off the right edge. On mobile we pull it back to
+       roughly center so it reads as a full-bleed backdrop behind the
+       hero copy instead of a sliver hugging the edge. */
     const states = [
-      { sel: "#home",            wx:  2.7, wy: -0.2, scale: 1.05, rotX: 0.3,  rotY: -1.2, opacity: 0.75 },
-      { sel: ".port-strip",      wx:  2.7, wy: -0.2, scale: 1.10, rotX: 0.3,  rotY: -0.6, opacity: 0.55 },
+      { sel: "#home",            wx:  2.7, wy: -0.2, scale: 1.05, rotX: 0.3,  rotY: -1.2, opacity: 0.75,
+        m: { wx: 0.25, wy: -1.0, scale: 1.0,  opacity: 0.6 } },
+      { sel: ".port-strip",      wx:  2.7, wy: -0.2, scale: 1.10, rotX: 0.3,  rotY: -0.6, opacity: 0.55,
+        m: { wx: 0.25, wy: -1.0, scale: 1.05, opacity: 0.4 } },
       { sel: "#network",         wx:  0.0, wy:  0.0, scale: 1.70, rotX: 0.35, rotY:  0.3, opacity: 1.00 },
       { sel: "#services",        wx:  4.5, wy:  0.0, scale: 0.50, rotX: 0.4,  rotY:  1.8, opacity: 0.00 },
       { sel: "#track",           wx:  2.4, wy:  0.0, scale: 1.10, rotX: 0.4,  rotY:  2.6, opacity: 0.55 },
@@ -485,13 +629,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const renderer = new T.WebGLRenderer({ canvas, alpha: true, antialias: true });
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
+    /* Track whether we're at a mobile viewport so states can swap to
+       their `m:` overrides. Recomputed on every resize. */
+    let mobileView = window.matchMedia("(max-width: 760px)").matches;
     const fitCanvas = () => {
       camera.aspect = innerWidth / innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(innerWidth, innerHeight, false);
+      mobileView = window.matchMedia("(max-width: 760px)").matches;
     };
     fitCanvas();
     window.addEventListener("resize", fitCanvas);
+
+    /* Read a state field, preferring its mobile override when present. */
+    const sv = (s, k) => (mobileView && s.m && s.m[k] !== undefined) ? s.m[k] : s[k];
 
     const { group, portMeshes, arcMeshes, labelEls } = buildGlobe({
       radius: 2, showLabels: true, labelsHost, showArcs: true,
@@ -537,12 +688,12 @@ document.addEventListener("DOMContentLoaded", () => {
       t = Math.max(0, Math.min(1, t));
       const e = easeInOut(t);
       return {
-        wx:      lerp(A.wx,      B.wx,      e),
-        wy:      lerp(A.wy,      B.wy,      e),
-        scale:   lerp(A.scale,   B.scale,   e),
-        rotX:    lerp(A.rotX,    B.rotX,    e),
-        rotY:    lerp(A.rotY,    B.rotY,    e),
-        opacity: lerp(A.opacity, B.opacity, e),
+        wx:      lerp(sv(A,"wx"),      sv(B,"wx"),      e),
+        wy:      lerp(sv(A,"wy"),      sv(B,"wy"),      e),
+        scale:   lerp(sv(A,"scale"),   sv(B,"scale"),   e),
+        rotX:    lerp(sv(A,"rotX"),    sv(B,"rotX"),    e),
+        rotY:    lerp(sv(A,"rotY"),    sv(B,"rotY"),    e),
+        opacity: lerp(sv(A,"opacity"), sv(B,"opacity"), e),
       };
     }
 
